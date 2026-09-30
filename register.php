@@ -11,10 +11,22 @@ if (isset($_POST['register'])) {
 
     $password = password_hash($password, PASSWORD_DEFAULT);
 
-    $query = "INSERT INTO users (name, email, password, role)
-          VALUES ('$name', '$email', '$password', '$role')";
+    $check = "SELECT * FROM users WHERE email='$email'";
+    $result = mysqli_query($conn, $check);
 
-    mysqli_query($conn, $query);
+    if (mysqli_num_rows($result) > 0) {
+
+        echo "Email already registered!";
+    } else {
+
+        $query = "INSERT INTO users (name, email, password, role)
+              VALUES ('$name', '$email', '$password', '$role')";
+
+        mysqli_query($conn, $query);
+
+        
+        echo "Registration Successful!";
+    }
 }
 ?>
 <!DOCTYPE html>
