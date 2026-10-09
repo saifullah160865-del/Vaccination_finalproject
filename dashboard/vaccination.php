@@ -1,13 +1,3 @@
-      <?php
-        include("base/header.php");
-      ?>
-
-
-
-
-
-
-
-      <?php
-        include("base/footer.php");
-      ?>
+<?php
+include("vaccination_dates.php");
+?>

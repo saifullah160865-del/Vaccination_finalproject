@@ -6,8 +6,17 @@
     extract($_POST);
 
     $insert_query = "INSERT INTO users(name, email, password, role) VALUES('$fullName', '$email', sha1('$password'), '$role')";
-
     $execute = mysqli_query($conn, $insert_query);
+    if ($execute) {
+      $user_id = mysqli_insert_id($conn);
+      if ($role == 'hospital') {
+        $h_loc = isset($location) ? $location : '';
+        $h_addr = isset($address) ? $address : '';
+        $h_ph = isset($phone) ? $phone : '';
+        mysqli_query($conn, "INSERT INTO hospitals (user_id, hospital_name, address, location, phone) VALUES ('$user_id', '$fullName', '$h_addr', '$h_loc', '$h_ph')");
+      }
+      echo "<script>alert('Registration Successful! Please Login.'); location.assign('login.php');</script>";
+    }
   }
 ?>
 
@@ -120,10 +129,10 @@
   <!--begin::Body-->
   <body class="register-page bg-body-secondary">
     <main class="register-box">
-      <h1 class="register-logo">
-        <a href="../index2.html"><b>Admin</b>LTE</a>
+      <h1 class="login-logo">
+        <a href="index.php"><b>Admin</b>LTE</a>
       </h1>
-      <!-- /.register-logo -->
+      <!-- /.login-logo -->
       <div class="card">
         <div class="card-body register-card-body">
           <p class="register-box-msg">Register a new membership</p>
@@ -131,14 +140,14 @@
           <form method="post">
             <label class="visually-hidden" for="registerName">Full Name</label>
             <div class="input-group mb-3">
-              <input id="registerName" type="text" class="form-control" placeholder="Full Name" name="fullName" />
+              <input id="registerName" type="text" class="form-control" placeholder="Full Name / Hospital Name" name="fullName" required />
               <div class="input-group-text">
                 <span class="bi bi-person"></span>
               </div>
             </div>
             <label class="visually-hidden" for="registerEmail">Email</label>
             <div class="input-group mb-3">
-              <input id="registerEmail" type="email" class="form-control" placeholder="Email" name="email" />
+              <input id="registerEmail" type="email" class="form-control" placeholder="Email" name="email" required />
               <div class="input-group-text">
                 <span class="bi bi-envelope"></span>
               </div>
@@ -151,19 +160,44 @@
                 class="form-control"
                 placeholder="Password"
                 name="password"
+                required
               />
               <div class="input-group-text">
                 <span class="bi bi-lock-fill"></span>
               </div>
             </div>
 
-            <label class="visually-hidden" for="registerPassword">Who are You?</label>
             <div class="input-group mb-3">
-              <select name="role" class="form-select">
+              <select name="role" id="roleSelect" class="form-select" onchange="toggleHospitalFields()">
                 <option value="parent">Parent</option>
                 <option value="hospital">Hospital</option>
               </select>
             </div>
+
+            <div id="hospitalFields" style="display: none;">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="City / Location" name="location" />
+              </div>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Phone Number" name="phone" />
+              </div>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Hospital Address" name="address" />
+              </div>
+            </div>
+
+            <script>
+              function toggleHospitalFields() {
+                var role = document.getElementById('roleSelect').value;
+                var hFields = document.getElementById('hospitalFields');
+                if (role === 'hospital') {
+                  hFields.style.display = 'block';
+                } else {
+                  hFields.style.display = 'none';
+                }
+              }
+            </script>
+
             <!--begin::Row-->
             <div class="row">
               <div class="col-12">
@@ -175,6 +209,9 @@
             </div>
             <!--end::Row-->
           </form>
+          <div class="text-center mt-3">
+            <a href="login.php" class="text-decoration-none">Already registered? Sign In</a>
+          </div>
         </div>
         <!-- /.register-card-body -->
       </div>

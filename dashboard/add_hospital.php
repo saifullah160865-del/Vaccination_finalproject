@@ -1,111 +1,84 @@
 <?php
 include("base/header.php");
+$message = "";
+$error = "";
+
+if (isset($_POST['add_hospital'])) {
+  extract($_POST);
+
+  if ($hospital_name == "" || $email == "" || $password == "" || $location == "") {
+    $error = "Please fill all required fields";
+  } else {
+    $check_email = mysqli_query($conn, "SELECT id FROM users WHERE email='$email'");
+    if (mysqli_num_rows($check_email) > 0) {
+      $error = "Email already registered for another user";
+    } else {
+      $user_query = "INSERT INTO users (name, email, password, role) VALUES ('$hospital_name', '$email', sha1('$password'), 'hospital')";
+      if (mysqli_query($conn, $user_query)) {
+        $user_id = mysqli_insert_id($conn);
+        $hosp_query = "INSERT INTO hospitals (user_id, hospital_name, address, location, phone) VALUES ('$user_id', '$hospital_name', '$address', '$location', '$phone')";
+        mysqli_query($conn, $hosp_query);
+        echo "<script>location.assign('hospitals_list.php');</script>";
+      } else {
+        $error = "Error adding hospital account";
+      }
+    }
+  }
+}
 ?>
 
+<div class="col-lg-8 mx-auto">
+  <div class="card card-primary card-outline mb-4">
+    <div class="card-header">
+      <h3 class="card-title">Add Hospital</h3>
+    </div>
 
-     <!-- Custom validation -->
-              <div class="col-lg-6">
-                <div class="card card-info card-outline mb-4">
-                  <div class="card-header">
-                    <div class="card-title">Custom Validation</div>
-                  </div>
-                  <form class="needs-validation" novalidate>
-                    <div class="card-body">
-                      <div class="row g-3">
-                        <div class="col-md-6">
-                          <label for="validationCustom01" class="form-label">First name</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="validationCustom01"
-                            value="Mark"
-                            required
-                          />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <div class="col-md-6">
-                          <label for="validationCustom02" class="form-label">Last name</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="validationCustom02"
-                            value="Otto"
-                            required
-                          />
-                          <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <div class="col-md-6">
-                          <label for="validationCustomUsername" class="form-label">Username</label>
-                          <div class="input-group has-validation">
-                            <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="validationCustomUsername"
-                              aria-describedby="inputGroupPrepend"
-                              required
-                            />
-                            <div class="invalid-feedback">Please choose a username.</div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <label for="validationCustom03" class="form-label">City</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="validationCustom03"
-                            required
-                          />
-                          <div class="invalid-feedback">Please provide a valid city.</div>
-                        </div>
-                        <div class="col-md-6">
-                          <label for="validationCustom04" class="form-label">State</label>
-                          <select class="form-select" id="validationCustom04" required>
-                            <option selected disabled value="">Choose&hellip;</option>
-                            <option>California</option>
-                            <option>Washington</option>
-                            <option>Tennessee</option>
-                          </select>
-                          <div class="invalid-feedback">Please select a valid state.</div>
-                        </div>
-                        <div class="col-md-6">
-                          <label for="validationCustom05" class="form-label">Zip</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="validationCustom05"
-                            required
-                          />
-                          <div class="invalid-feedback">Please provide a valid zip.</div>
-                        </div>
-                        <div class="col-12">
-                          <div class="form-check">
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              value=""
-                              id="invalidCheck"
-                              required
-                            />
-                            <label class="form-check-label" for="invalidCheck">
-                              Agree to terms and conditions
-                            </label>
-                            <div class="invalid-feedback">You must agree before submitting.</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-footer">
-                      <button class="btn btn-info" type="submit">Submit form</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
+    <?php if ($error != "") { ?>
+      <div class="alert alert-danger m-3"><?php echo $error; ?></div>
+    <?php } ?>
 
+    <form method="POST">
+      <div class="card-body">
+        <div class="mb-3">
+          <label>Hospital Name</label>
+          <input type="text" name="hospital_name" class="form-control" required placeholder="Enter hospital name">
+        </div>
 
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label>Login Email</label>
+            <input type="email" name="email" class="form-control" required placeholder="Enter login email">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Login Password</label>
+            <input type="password" name="password" class="form-control" required placeholder="Enter login password">
+          </div>
+        </div>
 
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label>Phone Number</label>
+            <input type="text" name="phone" class="form-control" placeholder="Enter phone number">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>City / Location</label>
+            <input type="text" name="location" class="form-control" required placeholder="e.g. Lahore, Karachi, Islamabad">
+          </div>
+        </div>
 
+        <div class="mb-3">
+          <label>Full Address</label>
+          <textarea name="address" class="form-control" rows="2" placeholder="Enter complete hospital address" required></textarea>
+        </div>
+      </div>
 
+      <div class="card-footer">
+        <button type="submit" name="add_hospital" class="btn btn-primary">Add Hospital</button>
+        <a href="hospitals_list.php" class="btn btn-secondary">Back to List</a>
+      </div>
+    </form>
+  </div>
+</div>
 
 <?php
 include("base/footer.php");

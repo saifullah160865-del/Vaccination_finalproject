@@ -2,66 +2,65 @@
 include("base/header.php");
 ?>
 
-
 <div class="card mb-4">
-                  <div class="card-header">
-                    <h3 class="card-title">Bookings</h3>
-                  </div>
-                  <!-- /.card-header -->
-                  <div class="card-body">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th style="width: 10px">#</th>
-                          <th>Parent</th>
-                          <th>Child Name</th>
-                          <th>DOB</th>
-                          <th>Gender</th>
-                          <th style="width: 40px">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="align-middle">
-                          <td>1.</td>
-                          <td>Update software</td>
-                          <td>
-                            abc
-                          </td>
-                          <td>55%</td>
-                          <td>123</td>
-                          <td>
-                            <button>Edit</button>
-                            <button>Delete</button>
-                          </td>
-                        </tr>
-                      
-                      </tbody>
-                    </table>
-                  </div>
-                  <!-- /.card-body -->
-                  <div class="card-footer clearfix">
-                    <ul class="pagination pagination-sm m-0 float-end">
-                      <li class="page-item">
-                        <a class="page-link" href="#">&laquo;</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">1</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">&raquo;</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <!-- /.card -->
+  <div class="card-header">
+    <h3 class="card-title">Booking Details</h3>
+  </div>
 
-
+  <div class="card-body">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th style="width: 10px">#</th>
+          <th>Parent Name</th>
+          <th>Child Name</th>
+          <th>Hospital</th>
+          <th>Vaccine</th>
+          <th>Booking Date</th>
+          <th>Status</th>
+          <th>Submitted On</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        $query = "SELECT bookings.*, users.name AS parent_name, users.email AS parent_email, children.child_name, hospitals.hospital_name, vaccines.vaccine_name 
+                  FROM bookings 
+                  JOIN users ON bookings.parent_id = users.id 
+                  JOIN children ON bookings.child_id = children.id 
+                  JOIN hospitals ON bookings.hospital_id = hospitals.id 
+                  JOIN vaccination_dates ON bookings.vaccination_id = vaccination_dates.id 
+                  JOIN vaccines ON vaccination_dates.vaccine_id = vaccines.id 
+                  ORDER BY bookings.id DESC";
+        $execute = mysqli_query($conn, $query);
+        $count = 1;
+        while ($display = mysqli_fetch_array($execute)) {
+          if ($display['status'] == 'Approved') {
+            $badge = "bg-success";
+          } else if ($display['status'] == 'Rejected') {
+            $badge = "bg-danger";
+          } else if ($display['status'] == 'Completed') {
+            $badge = "bg-info";
+          } else {
+            $badge = "bg-warning text-dark";
+          }
+        ?>
+          <tr class="align-middle">
+            <td><?php echo $count++; ?></td>
+            <td><?php echo $display['parent_name']; ?><br><small class="text-muted"><?php echo $display['parent_email']; ?></small></td>
+            <td><strong><?php echo $display['child_name']; ?></strong></td>
+            <td><?php echo $display['hospital_name']; ?></td>
+            <td><?php echo $display['vaccine_name']; ?></td>
+            <td><?php echo $display['booking_date']; ?></td>
+            <td><span class="badge <?php echo $badge; ?>"><?php echo $display['status']; ?></span></td>
+            <td><?php echo $display['created_at']; ?></td>
+          </tr>
+        <?php
+        }
+        ?>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <?php
 include("base/footer.php");

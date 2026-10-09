@@ -1,32 +1,30 @@
 <?php
 session_start();
-
-include "config/db.php";
+$conn = mysqli_connect("localhost", "root", "", "vaccination_system");
 
 if (isset($_POST['login'])) {
 
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $query = "SELECT * FROM users WHERE email = '$email'";
+    $query = "SELECT * FROM users WHERE email = '$email' AND password = sha1('$password')";
 
     $result = mysqli_query($conn, $query);
 
-    $user = mysqli_fetch_assoc($result);
-
-    if ($user && password_verify($password, $user['password'])) {
+    if (mysqli_num_rows($result) > 0) {
+        $user = mysqli_fetch_array($result);
 
         $_SESSION['user_id'] = $user['id'];
+        $_SESSION['name'] = $user['name'];
         $_SESSION['role'] = $user['role'];
 
-        header("Location: dashboard.php");
+        header("Location: dashboard/index.php");
         exit;
     } else {
 
         echo "Invalid Email or Password";
     }
 }
-
 ?>
 
 <!DOCTYPE html>

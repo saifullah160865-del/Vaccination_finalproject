@@ -1,5 +1,9 @@
 <?php
 include("config/db.php");
+if (!isset($_SESSION['user_id'])) {
+  header("Location: login.php");
+  exit;
+}
 ?>
 
 <!doctype html>
@@ -401,8 +405,8 @@ include("config/db.php");
               <img
                 src="./assets/img/user2-160x160.jpg"
                 class="user-image rounded-circle shadow"
-                alt="Alexander Pierce" />
-              <span class="d-none d-md-inline">Alexander Pierce</span>
+                alt="User Image" />
+              <span class="d-none d-md-inline"><?php echo isset($_SESSION['name']) ? $_SESSION['name'] : 'User'; ?></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
               <!--begin::User Image-->
@@ -410,33 +414,16 @@ include("config/db.php");
                 <img
                   src="./assets/img/user2-160x160.jpg"
                   class="rounded-circle shadow"
-                  alt="Alexander Pierce" />
+                  alt="User Image" />
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2023</small>
+                  <?php echo isset($_SESSION['name']) ? $_SESSION['name'] : 'User'; ?> - <?php echo isset($_SESSION['role']) ? ucfirst($_SESSION['role']) : ''; ?>
+                  <small>Infant Vaccination Management System</small>
                 </p>
               </li>
               <!--end::User Image-->
-              <!--begin::Menu Body-->
-              <li class="user-body">
-                <!--begin::Row-->
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!--end::Row-->
-              </li>
-              <!--end::Menu Body-->
               <!--begin::Menu Footer-->
               <li class="user-footer">
-                <a href="#" class="btn btn-outline-secondary">Profile</a>
+                <a href="profile.php" class="btn btn-outline-secondary">Profile</a>
                 <a href="logout.php" class="btn btn-outline-danger float-end">Sign out</a>
               </li>
               <!--end::Menu Footer-->
@@ -454,7 +441,7 @@ include("config/db.php");
       <!--begin::Sidebar Brand-->
       <div class="sidebar-brand">
         <!--begin::Brand Link-->
-        <a href="./index.html" class="brand-link">
+        <a href="index.php" class="brand-link">
           <!--begin::Brand Image-->
           <img
             src="./assets/img/AdminLTELogo.png"
@@ -496,9 +483,8 @@ include("config/db.php");
             data-accordion="false"
             id="navigation">
 
-            <!-- Dashboard -->
             <li class="nav-item">
-              <a href="dashboard.php" class="nav-link active">
+              <a href="index.php" class="nav-link">
                 <i class="nav-icon bi bi-speedometer"></i>
                 <p>Dashboard</p>
               </a>
@@ -507,37 +493,30 @@ include("config/db.php");
             <?php
             if ($_SESSION['role'] == "admin") {
             ?>
-              <!-- Children -->
               <li class="nav-item">
-                <a href="childrens.php" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-people"></i>
                   <p>
                     Children
                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
-
                 <ul class="nav nav-treeview">
-
                   <li class="nav-item">
-                    <a href="children.php" class="nav-link">
+                    <a href="childrens.php" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>All Child Details</p>
                     </a>
                   </li>
-
                   <li class="nav-item">
                     <a href="vaccination_dates.php" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Vaccination Dates</p>
                     </a>
                   </li>
-
                 </ul>
               </li>
 
-
-              <!-- Vaccination -->
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-capsule"></i>
@@ -546,132 +525,106 @@ include("config/db.php");
                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
-
                 <ul class="nav nav-treeview">
-
                   <li class="nav-item">
-                    <a href="vaccination.php" class="nav-link">
+                    <a href="vaccination_dates.php" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
-                      <p>Date & Time of Vaccination</p>
+                      <p>Date & Time</p>
                     </a>
                   </li>
-
                   <li class="nav-item">
                     <a href="vaccination_reports.php" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Vaccination Reports</p>
                     </a>
                   </li>
-
                   <li class="nav-item">
-                    <a href="date_wise_report.php" class="nav-link">
+                    <a href="vaccination_reports.php" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Date Wise Report</p>
                     </a>
                   </li>
-
                 </ul>
               </li>
 
-
-              <!-- Vaccines -->
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="vaccines_list.php" class="nav-link">
                   <i class="nav-icon bi bi-prescription2"></i>
                   <p>
                     Vaccines
                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
-
                 <ul class="nav nav-treeview">
-
                   <li class="nav-item">
-                    <a href="vaccines.php" class="nav-link">
+                    <a href="#" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Vaccine List</p>
                     </a>
                   </li>
-
                   <li class="nav-item">
-                    <a href="vaccine_status.php" class="nav-link">
+                    <a href="#" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Available / Unavailable</p>
                     </a>
                   </li>
-
                 </ul>
               </li>
 
-
-              <!-- Parent Requests -->
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="parent_requests.php" class="nav-link">
                   <i class="nav-icon bi bi-person-check"></i>
                   <p>
                     Parent Requests
                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
-
                 <ul class="nav nav-treeview">
-
                   <li class="nav-item">
                     <a href="parent_requests.php" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Requests</p>
                     </a>
                   </li>
-
                   <li class="nav-item">
-                    <a href="approve_requests.php" class="nav-link">
+                    <a href="parent_requests.php" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Approve / Reject</p>
                     </a>
                   </li>
-
                 </ul>
               </li>
 
-
-              <!-- Hospitals -->
               <li class="nav-item">
-                <a href="hospitals.php" class="nav-link">
+                <a href="add_hospital.php" class="nav-link">
                   <i class="nav-icon bi bi-hospital"></i>
                   <p>
                     Hospitals
                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
-
                 <ul class="nav nav-treeview">
-
                   <li class="nav-item">
                     <a href="add_hospital.php" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Add Hospital</p>
                     </a>
                   </li>
-
                   <li class="nav-item">
-                    <a href="hospitals.php" class="nav-link">
+                    <a href="hospitals_list.php" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>List of Hospitals</p>
                     </a>
                   </li>
-
                   <li class="nav-item">
                     <a href="manage_hospitals.php" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Update / Delete Hospital</p>
                     </a>
                   </li>
-
                 </ul>
               </li>
 
-
-              <!-- Bookings -->
               <li class="nav-item">
                 <a href="bookings.php" class="nav-link">
                   <i class="nav-icon bi bi-calendar-check"></i>
@@ -682,230 +635,71 @@ include("config/db.php");
             <?php
             } else if ($_SESSION['role'] == "parent") {
             ?>
-              <!-- Children -->
               <li class="nav-item">
                 <a href="childrens.php" class="nav-link">
                   <i class="nav-icon bi bi-people"></i>
-                  <p>
-                    My Children
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
+                  <p>My Children</p>
                 </a>
-
-                <ul class="nav nav-treeview">
-
-                  <li class="nav-item">
-                    <a href="children.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Book Hospital</p>
-                    </a>
-                  </li>
-
-                  <li class="nav-item">
-                    <a href="vaccination_dates.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Hospital Request</p>
-                    </a>
-                  </li>
-
-                </ul>
               </li>
 
-
-              <!-- Vaccination -->
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-capsule"></i>
-                  <p>
-                    My Vaccination Report
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
+                <a href="vaccines_list.php" class="nav-link">
+                  <i class="nav-icon bi bi-calendar-date"></i>
+                  <p>Vaccination Dates</p>
                 </a>
-
-                <ul class="nav nav-treeview">
-
-                  <li class="nav-item">
-                    <a href="vaccination.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Date & Time of Vaccination</p>
-                    </a>
-                  </li>
-
-                  <li class="nav-item">
-                    <a href="vaccination_reports.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Vaccination Reports</p>
-                    </a>
-                  </li>
-
-                  <li class="nav-item">
-                    <a href="date_wise_report.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Date Wise Report</p>
-                    </a>
-                  </li>
-
-                </ul>
               </li>
 
-
-              <!-- Vaccines -->
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-prescription2"></i>
-                  <p>
-                    My Profile
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
+                <a href="book_hospital.php" class="nav-link">
+                  <i class="nav-icon bi bi-hospital"></i>
+                  <p>Book Hospital</p>
                 </a>
-
-                <ul class="nav nav-treeview">
-
-                  <li class="nav-item">
-                    <a href="vaccines.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Vaccine List</p>
-                    </a>
-                  </li>
-
-                  <li class="nav-item">
-                    <a href="vaccine_status.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Available / Unavailable</p>
-                    </a>
-                  </li>
-
-                </ul>
               </li>
+
+              <li class="nav-item">
+                <a href="my_bookings.php" class="nav-link">
+                  <i class="nav-icon bi bi-clock-history"></i>
+                  <p>Booking Status</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="my_reports.php" class="nav-link">
+                  <i class="nav-icon bi bi-file-earmark-medical"></i>
+                  <p>Vaccination Reports</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="profile.php" class="nav-link">
+                  <i class="nav-icon bi bi-person"></i>
+                  <p>My Profile</p>
+                </a>
+              </li>
+
             <?php
-            } else {
+            } else if ($_SESSION['role'] == "hospital") {
             ?>
-
-                <!-- Children -->
               <li class="nav-item">
-                <a href="childrens.php" class="nav-link">
-                  <i class="nav-icon bi bi-people"></i>
-                  <p>
-                    Vaccines
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
+                <a href="hospital_bookings.php" class="nav-link">
+                  <i class="nav-icon bi bi-calendar2-check"></i>
+                  <p>Appointments & Status</p>
                 </a>
-
-                <ul class="nav nav-treeview">
-
-                  <li class="nav-item">
-                    <a href="children.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Book Hospital</p>
-                    </a>
-                  </li>
-
-                  <li class="nav-item">
-                    <a href="vaccination_dates.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Hospital Request</p>
-                    </a>
-                  </li>
-
-                </ul>
               </li>
 
-
-              <!-- Vaccination -->
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-capsule"></i>
-                  <p>
-                    Bookings
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-
-                <ul class="nav nav-treeview">
-
-                  <li class="nav-item">
-                    <a href="vaccination.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Date & Time of Vaccination</p>
-                    </a>
-                  </li>
-
-                  <li class="nav-item">
-                    <a href="vaccination_reports.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Vaccination Reports</p>
-                    </a>
-                  </li>
-
-                  <li class="nav-item">
-                    <a href="date_wise_report.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Date Wise Report</p>
-                    </a>
-                  </li>
-
-                </ul>
-              </li>
-
-
-              <!-- Vaccines -->
-              <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="vaccines_list.php" class="nav-link">
                   <i class="nav-icon bi bi-prescription2"></i>
-                  <p>
-                    Vaccination
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
+                  <p>Vaccine Availability</p>
                 </a>
-
-                <ul class="nav nav-treeview">
-
-                  <li class="nav-item">
-                    <a href="vaccines.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Vaccine List</p>
-                    </a>
-                  </li>
-
-                  <li class="nav-item">
-                    <a href="vaccine_status.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Available / Unavailable</p>
-                    </a>
-                  </li>
-
-                </ul>
               </li>
 
-                <!-- Vaccines -->
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-prescription2"></i>
-                  <p>
-                    My Profile
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
+                <a href="profile.php" class="nav-link">
+                  <i class="nav-icon bi bi-hospital"></i>
+                  <p>Hospital Profile</p>
                 </a>
-
-                <ul class="nav nav-treeview">
-
-                  <li class="nav-item">
-                    <a href="vaccines.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Vaccine List</p>
-                    </a>
-                  </li>
-
-                  <li class="nav-item">
-                    <a href="vaccine_status.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Available / Unavailable</p>
-                    </a>
-                  </li>
-
-                </ul>
               </li>
-
             <?php
             }
             ?>
