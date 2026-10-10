@@ -1,0 +1,666 @@
+/**
+ * Vaxcare - Medical Theme for Dashboard
+ * -------------------------------------------------------------
+ * Primary Color: Royal / Electric Blue (#175cdd)
+ *   - Branding text, primary buttons, highlighted keywords,
+ *     statistical numbers (e.g., 15+, 5000+), accent badges.
+ *
+ * Background Colors: Pure White (#ffffff) and very light Soft Blue / Off-White Gradients
+ *   - Modern, sterile, and trustworthy medical aesthetic.
+ *
+ * Text Colors: Dark Charcoal (#3c4049) and Navy (#112344)
+ *   - Headings in Navy, body in Dark Charcoal.
+ *
+ * Accent Colors: Soft muted blues for tags & informational pills
+ *   - (Accredited, 24/7 Emergency badges, status pills)
+ *   - Rating star highlights (#ffb703).
+ * -------------------------------------------------------------
+ */
+
+@charset "UTF-8";
+
+:root,
+[data-bs-theme="light"],
+[data-bs-theme="dark"],
+body {
+  /* Bootstrap 5 Theme Overrides */
+  --bs-primary: #175cdd;
+  --bs-primary-rgb: 23, 92, 221;
+  --bs-primary-hover: #1249b0;
+  --bs-primary-active: #0e3b8f;
+  --bs-link-color: #175cdd;
+  --bs-link-hover-color: #1249b0;
+
+  /* Typography Colors */
+  --bs-body-color: #3c4049;
+  --bs-body-color-rgb: 60, 64, 73;
+  --bs-heading-color: #112344;
+  --bs-secondary-color: #5a6270;
+  --bs-secondary-color-rgb: 90, 98, 112;
+
+  /* Background Colors */
+  --bs-body-bg: #f4f8ff;
+  --bs-body-bg-rgb: 244, 248, 255;
+  --bs-tertiary-bg: #f4f8ff;
+  --bs-secondary-bg: #ffffff;
+  --bs-light: #f4f8ff;
+  --bs-light-rgb: 244, 248, 255;
+
+  /* Borders */
+  --bs-border-color: #e2eaf8;
+  --bs-border-color-translucent: rgba(23, 92, 221, 0.1);
+
+  /* Clinic Custom Variables */
+  --medical-primary: #175cdd;
+  --medical-primary-hover: #1249b0;
+  --medical-navy: #112344;
+  --medical-charcoal: #3c4049;
+  --medical-bg-soft: #f4f8ff;
+  --medical-bg-white: #ffffff;
+  --medical-pill-bg: #eaf2fd;
+  --medical-pill-text: #175cdd;
+  --medical-pill-border: #cfe0fc;
+  --medical-star: #ffb703;
+}
+
+/* Base Body & Layout */
+body {
+  background-color: #f4f8ff !important;
+  color: #3c4049 !important;
+  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-wrapper {
+  background-color: #f4f8ff !important;
+}
+
+.app-main {
+  background-color: #f4f8ff !important;
+}
+
+/* Headings: Navy */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+.card-title,
+.app-content-header h1,
+.modal-title {
+  color: #112344 !important;
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-weight: 600;
+}
+
+/* Body Text & Paragraphs: Dark Charcoal */
+p, label, span, td, th, li, a {
+  color: inherit;
+}
+
+p {
+  color: #3c4049;
+}
+
+/* Links */
+a {
+  color: #175cdd;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #1249b0;
+}
+
+/* Highlighted keywords */
+.highlight,
+.text-highlight {
+  color: #175cdd !important;
+  font-weight: 600;
+}
+
+/* Top App Header / Navbar */
+.app-header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e2eaf8 !important;
+  box-shadow: 0 1px 4px rgba(17, 35, 68, 0.04) !important;
+}
+
+.app-header .navbar-nav .nav-link {
+  color: #3c4049 !important;
+}
+
+.app-header .navbar-nav .nav-link:hover {
+  color: #175cdd !important;
+}
+
+/* Sidebar: Crisp Pure White with subtle medical accents */
+.app-sidebar {
+  background-color: #ffffff !important;
+  border-right: 1px solid #e2eaf8 !important;
+  box-shadow: 2px 0 12px rgba(17, 35, 68, 0.03) !important;
+  color: #3c4049 !important;
+}
+
+.app-sidebar .sidebar-brand {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e2eaf8 !important;
+}
+
+.app-sidebar .brand-link {
+  color: #175cdd !important;
+  text-decoration: none;
+}
+
+.app-sidebar .brand-text {
+  color: #175cdd !important;
+  font-weight: 700 !important;
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+}
+
+.app-sidebar .sidebar-search input {
+  background-color: #f4f8ff !important;
+  border: 1px solid #e2eaf8 !important;
+  color: #3c4049 !important;
+  border-radius: 8px !important;
+}
+
+.app-sidebar .sidebar-search input:focus {
+  border-color: #175cdd !important;
+  box-shadow: 0 0 0 3px rgba(23, 92, 221, 0.15) !important;
+}
+
+.app-sidebar .sidebar-menu {
+  padding: 0.5rem 0;
+}
+
+.app-sidebar .sidebar-menu .nav-link {
+  color: #3c4049 !important;
+  border-radius: 8px !important;
+  margin: 3px 12px !important;
+  font-weight: 500;
+  font-size: 0.925rem;
+  transition: all 0.2s ease;
+}
+
+.app-sidebar .sidebar-menu .nav-link i {
+  color: #175cdd !important;
+  font-size: 1.1rem;
+}
+
+.app-sidebar .sidebar-menu .nav-link:hover {
+  background-color: #f4f8ff !important;
+  color: #175cdd !important;
+}
+
+.app-sidebar .sidebar-menu .nav-link.active,
+.app-sidebar .sidebar-menu .nav-item.menu-open > .nav-link {
+  background-color: #eaf2fd !important;
+  color: #175cdd !important;
+  font-weight: 600;
+}
+
+.app-sidebar .sidebar-menu .nav-link.active i {
+  color: #175cdd !important;
+}
+
+.app-sidebar .sidebar-menu .nav-treeview {
+  padding-left: 0.5rem;
+}
+
+.app-sidebar .sidebar-menu .nav-treeview .nav-link {
+  font-size: 0.875rem;
+  padding-left: 2rem;
+}
+
+.app-sidebar .sidebar-menu .nav-treeview .nav-link i {
+  font-size: 0.6rem;
+  color: #175cdd !important;
+}
+
+/* User Menu Header */
+.user-menu .user-header {
+  background: linear-gradient(135deg, #175cdd 0%, #1144a6 100%) !important;
+  color: #ffffff !important;
+}
+
+.user-menu .user-header p {
+  color: #ffffff !important;
+}
+
+.user-menu .user-header small {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.user-menu .dropdown-menu {
+  border: 1px solid #e2eaf8 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px rgba(17, 35, 68, 0.08) !important;
+}
+
+.user-footer {
+  background-color: #f8fafd !important;
+}
+
+/* Cards & Panels: Pure White with Soft Borders */
+.card {
+  background: #ffffff !important;
+  border: 1px solid #e2eaf8 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 10px rgba(17, 35, 68, 0.03) !important;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.card-header {
+  background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%) !important;
+  border-bottom: 1px solid #e2eaf8 !important;
+  padding: 1rem 1.25rem !important;
+  color: #112344 !important;
+}
+
+.card-header .card-title {
+  color: #112344 !important;
+  font-weight: 600 !important;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.card-header .card-title i {
+  color: #175cdd !important;
+}
+
+/* Card outlines */
+.card-primary.card-outline,
+.card-outline {
+  border-top: 3px solid #175cdd !important;
+}
+
+.card-warning.card-outline {
+  border-top: 3px solid #175cdd !important;
+}
+
+/* Small Box / Metric Cards */
+.small-box,
+.stat-card-medical {
+  background: linear-gradient(145deg, #ffffff 0%, #f4f8ff 100%) !important;
+  border: 1px solid #dbe8fc !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 14px rgba(23, 92, 221, 0.05) !important;
+  color: #3c4049 !important;
+  position: relative;
+  display: block;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.small-box:hover,
+.stat-card-medical:hover {
+  transform: translateY(-2px);
+  border-color: #c0d8fa !important;
+  box-shadow: 0 8px 22px rgba(23, 92, 221, 0.1) !important;
+}
+
+.small-box .inner,
+.stat-card-medical .inner {
+  padding: 1.35rem 1.25rem !important;
+}
+
+/* Statistical Numbers: Royal / Electric Blue */
+.small-box .inner h3,
+.stat-card-medical .inner h3,
+.stat-number,
+.highlight-number {
+  color: #175cdd !important;
+  font-size: 2.25rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.35rem !important;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.small-box .inner p,
+.stat-card-medical .inner p {
+  color: #3c4049 !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  margin-bottom: 0 !important;
+}
+
+.small-box-footer {
+  background-color: #eaf2fd !important;
+  color: #175cdd !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  padding: 9px 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  text-decoration: none !important;
+  border-top: 1px solid #dbe8fc !important;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.small-box-footer:hover {
+  background-color: #dbe8fc !important;
+  color: #1249b0 !important;
+}
+
+/* Remove all harsh legacy background colors on small boxes */
+.small-box.text-bg-primary,
+.small-box.text-bg-success,
+.small-box.text-bg-warning,
+.small-box.text-bg-danger,
+.small-box.text-bg-info {
+  background: linear-gradient(145deg, #ffffff 0%, #f4f8ff 100%) !important;
+  border: 1px solid #dbe8fc !important;
+  color: #3c4049 !important;
+}
+
+.small-box.text-bg-primary .inner h3,
+.small-box.text-bg-success .inner h3,
+.small-box.text-bg-warning .inner h3,
+.small-box.text-bg-danger .inner h3,
+.small-box.text-bg-info .inner h3 {
+  color: #175cdd !important;
+}
+
+.small-box.text-bg-primary .inner p,
+.small-box.text-bg-success .inner p,
+.small-box.text-bg-warning .inner p,
+.small-box.text-bg-danger .inner p,
+.small-box.text-bg-info .inner p {
+  color: #3c4049 !important;
+}
+
+.small-box.text-bg-primary .small-box-footer,
+.small-box.text-bg-success .small-box-footer,
+.small-box.text-bg-warning .small-box-footer,
+.small-box.text-bg-danger .small-box-footer,
+.small-box.text-bg-info .small-box-footer {
+  background-color: #eaf2fd !important;
+  color: #175cdd !important;
+}
+
+/* Primary Buttons: Royal / Electric Blue */
+.btn-primary {
+  background-color: #175cdd !important;
+  border-color: #175cdd !important;
+  color: #ffffff !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 6px rgba(23, 92, 221, 0.22) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #1249b0 !important;
+  border-color: #1249b0 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 10px rgba(23, 92, 221, 0.3) !important;
+}
+
+.btn-outline-primary {
+  color: #175cdd !important;
+  border-color: #175cdd !important;
+  background-color: transparent !important;
+  border-radius: 8px !important;
+  font-weight: 500;
+}
+
+.btn-outline-primary:hover {
+  background-color: #175cdd !important;
+  color: #ffffff !important;
+}
+
+.btn-outline-secondary {
+  color: #5a6270 !important;
+  border-color: #cbd5e1 !important;
+  background-color: #ffffff !important;
+  border-radius: 8px !important;
+  font-weight: 500;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #f1f5f9 !important;
+  color: #112344 !important;
+  border-color: #94a3b8 !important;
+}
+
+/* Secondary & Action Buttons */
+.btn-secondary {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #3c4049 !important;
+  border-radius: 8px !important;
+}
+
+.btn-secondary:hover {
+  background-color: #e2e8f0 !important;
+  color: #112344 !important;
+}
+
+/* Replace warning buttons with primary */
+.btn-warning {
+  background-color: #175cdd !important;
+  border-color: #175cdd !important;
+  color: #ffffff !important;
+}
+
+.btn-warning:hover {
+  background-color: #1249b0 !important;
+  border-color: #1249b0 !important;
+}
+
+/* Badges: Soft Muted Blues for Tags & Informational Pills */
+.badge,
+.badge-soft-blue,
+.badge-pill-medical {
+  background-color: #eaf2fd !important;
+  color: #175cdd !important;
+  border: 1px solid #cfe0fc !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+  padding: 0.35em 0.85em !important;
+  border-radius: 50rem !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Clean badges that override old bg-* colors */
+.badge.bg-primary,
+.badge.bg-info,
+.badge.bg-success,
+.badge.bg-warning,
+.badge.bg-danger {
+  background-color: #eaf2fd !important;
+  color: #175cdd !important;
+  border: 1px solid #cfe0fc !important;
+}
+
+/* Specific informational badges/pills (Accredited, 24/7 Emergency, rating stars) */
+.badge-accredited,
+.badge-emergency,
+.trust-badge-pill {
+  background-color: #eaf2fd !important;
+  color: #175cdd !important;
+  border: 1px solid #cfe0fc !important;
+  border-radius: 50rem !important;
+  padding: 0.4rem 0.9rem !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+}
+
+.badge-accredited i,
+.badge-emergency i,
+.trust-badge-pill i {
+  color: #175cdd !important;
+}
+
+/* Rating Star Highlight */
+.rating-star-highlight,
+.star-highlight,
+.bi-star-fill.text-warning,
+.bi-star-fill {
+  color: #ffb703 !important;
+}
+
+/* Clean Tables: Navy Headings, Charcoal Text, Soft Blue Striping */
+.table {
+  color: #3c4049 !important;
+  border-color: #e2eaf8 !important;
+  margin-bottom: 0;
+}
+
+.table thead th {
+  background-color: #f8fafd !important;
+  color: #112344 !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid #e2eaf8 !important;
+  font-size: 0.85rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.4px !important;
+  padding: 0.85rem 1rem !important;
+}
+
+.table tbody td {
+  padding: 0.85rem 1rem !important;
+  vertical-align: middle !important;
+  border-bottom: 1px solid #eef3fc !important;
+  color: #3c4049 !important;
+}
+
+.table tbody td strong {
+  color: #112344 !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #fafcff !important;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f0f5fd !important;
+}
+
+/* Forms: Pure White, Soft Border, Blue Focus Ring */
+.form-control,
+.form-select {
+  border: 1px solid #dbe8fc !important;
+  color: #3c4049 !important;
+  background-color: #ffffff !important;
+  border-radius: 8px !important;
+  padding: 0.6rem 0.85rem !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #175cdd !important;
+  box-shadow: 0 0 0 3px rgba(23, 92, 221, 0.15) !important;
+  background-color: #ffffff !important;
+}
+
+.form-label,
+label {
+  color: #112344 !important;
+  font-weight: 500 !important;
+  margin-bottom: 0.35rem !important;
+}
+
+.input-group-text {
+  background-color: #f4f8ff !important;
+  border: 1px solid #dbe8fc !important;
+  color: #175cdd !important;
+}
+
+/* List Groups */
+.list-group-item {
+  background-color: #ffffff !important;
+  border-color: #e2eaf8 !important;
+  color: #3c4049 !important;
+}
+
+.list-group-item:hover {
+  background-color: #f4f8ff !important;
+}
+
+/* Login & Register Pages */
+.login-page,
+.register-page {
+  background: linear-gradient(135deg, #f4f8ff 0%, #e8f0fe 100%) !important;
+  color: #3c4049 !important;
+}
+
+.login-box,
+.register-box {
+  width: 440px !important;
+  max-width: 95%;
+}
+
+.login-box .login-logo,
+.register-box .login-logo {
+  margin-bottom: 1.5rem !important;
+}
+
+.login-box .login-logo a,
+.register-box .login-logo a {
+  color: #175cdd !important;
+  font-weight: 700 !important;
+  font-size: 2rem !important;
+}
+
+.login-card-body,
+.register-card-body {
+  background: #ffffff !important;
+  border-radius: 14px !important;
+  padding: 2rem !important;
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+  margin-bottom: 0;
+}
+
+.breadcrumb-item a {
+  color: #175cdd !important;
+}
+
+.breadcrumb-item.active {
+  color: #5a6270 !important;
+}
+
+/* App Footer */
+.app-footer {
+  background-color: #ffffff !important;
+  border-top: 1px solid #e2eaf8 !important;
+  color: #5a6270 !important;
+  padding: 1rem 1.25rem !important;
+}
+
+.app-footer strong a {
+  color: #175cdd !important;
+}
+
+/* Alerts */
+.alert-success {
+  background-color: #eaf8f0 !important;
+  border-color: #bbf0d2 !important;
+  color: #1b6339 !important;
+}
+
+.alert-danger {
+  background-color: #fdf0f0 !important;
+  border-color: #fbd0d0 !important;
+  color: #9c2020 !important;
+}
+
+.alert-info {
+  background-color: #eaf2fd !important;
+  border-color: #cfe0fc !important;
+  color: #175cdd !important;
+}

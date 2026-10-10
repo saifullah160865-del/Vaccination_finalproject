@@ -112,23 +112,22 @@ if (isset($_POST['schedule_date'])) {
         $execute = mysqli_query($conn, $query);
         $count = 1;
         while ($display = mysqli_fetch_array($execute)) {
-          $status_class = ($display['status'] == 'Completed') ? 'bg-success' : 'bg-warning text-dark';
         ?>
           <tr class="align-middle">
             <td><?php echo $count++; ?></td>
             <td><strong><?php echo $display['child_name']; ?></strong></td>
             <td><?php echo $display['parent_name']; ?></td>
-            <td><?php echo $display['vaccine_name']; ?></td>
+            <td><span class="highlight"><?php echo $display['vaccine_name']; ?></span></td>
             <td><?php echo $display['vaccination_date']; ?></td>
-            <td><span class="badge <?php echo $status_class; ?>"><?php echo $display['status']; ?></span></td>
+            <td><span class="badge badge-soft-blue"><?php echo $display['status']; ?></span></td>
             <?php if ($_SESSION['role'] == 'admin') { ?>
             <td class="text-nowrap">
               <?php if ($display['status'] == 'Pending') { ?>
-                <a href="vaccination_dates.php?toggle_id=<?php echo $display['id']; ?>&new_status=Completed" class="btn btn-success btn-sm">Mark Completed</a>
+                <a href="vaccination_dates.php?toggle_id=<?php echo $display['id']; ?>&new_status=Completed" class="btn btn-outline-primary btn-sm">Mark Completed</a>
               <?php } else { ?>
-                <a href="vaccination_dates.php?toggle_id=<?php echo $display['id']; ?>&new_status=Pending" class="btn btn-warning btn-sm">Mark Pending</a>
+                <a href="vaccination_dates.php?toggle_id=<?php echo $display['id']; ?>&new_status=Pending" class="btn btn-outline-secondary btn-sm">Mark Pending</a>
               <?php } ?>
-              <a href="vaccination_dates.php?delete_id=<?php echo $display['id']; ?>" class="btn btn-primary btn-sm btn-outline-light" onclick="return confirm('Are you sure?')">Delete</a>
+              <a href="vaccination_dates.php?delete_id=<?php echo $display['id']; ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
             </td>
             <?php } ?>
           </tr>

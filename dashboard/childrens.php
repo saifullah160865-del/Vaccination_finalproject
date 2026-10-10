@@ -1,12 +1,38 @@
 <?php
 include("base/header.php");
-include("config/db.php");
 
 if (isset($_GET['delete_id'])) {
-  $delete_id = $_GET['delete_id'];
-  $select="DELETE FROM children WHERE id='$delete_id'";
-  $execute = mysqli_query($conn,$select);
-  echo "<script>location.assign('childrens.php');</script>";
+  $delete_id = intval($_GET['delete_id']);
+
+  if ($_SESSION['role'] == 'parent') {
+    $uid = $_SESSION['user_id'];
+    $check_owner = mysqli_query($conn, "SELECT id FROM children WHERE id='$delete_id' AND parent_id='$uid'");
+    if (mysqli_num_rows($check_owner) == 0) {
+      echo "<script>alert('Unauthorized action.'); location.assign('childrens.php');</script>";
+      exit;
+    }
+  }
+
+  mysqli_begin_transaction($conn);
+  try {
+    // 1. Delete associated vaccination reports
+    mysqli_query($conn, "DELETE FROM vaccination_reports WHERE child_id='$delete_id'");
+
+    // 2. Delete associated bookings
+    mysqli_query($conn, "DELETE FROM bookings WHERE child_id='$delete_id'");
+
+    // 3. Delete associated vaccination schedule dates
+    mysqli_query($conn, "DELETE FROM vaccination_dates WHERE child_id='$delete_id'");
+
+    // 4. Delete the child record
+    mysqli_query($conn, "DELETE FROM children WHERE id='$delete_id'");
+
+    mysqli_commit($conn);
+    echo "<script>location.assign('childrens.php');</script>";
+  } catch (Exception $e) {
+    mysqli_rollback($conn);
+    echo "<script>alert('Error deleting child: " . addslashes($e->getMessage()) . "'); location.assign('childrens.php');</script>";
+  }
 }
 
 if (isset($_POST['add_child'])) {
@@ -50,8 +76,8 @@ if (isset($_GET['edit_id'])) {
 
   <?php if ($edit_data) { ?>
   <div class="card mb-4 m-3">
-    <div class="card-header bg-warning text-dark">
-      <h3 class="card-title">Edit Child</h3>
+    <div class="card-header">
+      <h3 class="card-title text-primary"><i class="bi bi-pencil-square me-2"></i> Edit Child</h3>
     </div>
     <div class="card-body">
       <form method="POST">
@@ -71,7 +97,7 @@ if (isset($_GET['edit_id'])) {
             <option value="Female" <?php if ($edit_data['gender'] == 'Female') echo 'selected'; ?>>Female</option>
           </select>
         </div>
-        <button type="submit" name="update_child" class="btn btn-warning">Update Child</button>
+        <button type="submit" name="update_child" class="btn btn-primary">Update Child</button>
         <a href="childrens.php" class="btn btn-secondary">Cancel</a>
       </form>
     </div>
@@ -79,7 +105,7 @@ if (isset($_GET['edit_id'])) {
   <?php } else { ?>
   <div class="card mb-4 m-3">
     <div class="card-header">
-      <h3 class="card-title">Add Child</h3>
+      <h3 class="card-title text-primary"><i class="bi bi-person-plus me-2"></i> Add Child</h3>
     </div>
     <div class="card-body">
       <form method="POST">
@@ -120,7 +146,7 @@ if (isset($_GET['edit_id'])) {
   <?php } ?>
 
   <div class="card-body">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -146,12 +172,12 @@ if (isset($_GET['edit_id'])) {
           <tr class="align-middle">
             <td><?php echo $count++; ?></td>
             <td><?php echo $display['parent_name']; ?></td>
-            <td><?php echo $display['child_name']; ?></td>
+            <td><strong><?php echo $display['child_name']; ?></strong></td>
             <td><?php echo $display['date_of_birth']; ?></td>
-            <td><?php echo $display['gender']; ?></td>
+            <td><span class="badge badge-soft-blue"><?php echo $display['gender']; ?></span></td>
             <td class="text-nowrap">
-              <a href="childrens.php?edit_id=<?php echo $display['id']; ?>" class="btn btn-danger btn-sm btn-outline-light">Edit</a>
-              <a href="childrens.php?delete_id=<?php echo $display['id']; ?>" class="btn btn-primary btn-sm btn-outline-light" onclick="return confirm('Are you sure?')">Delete</a>
+              <a href="childrens.php?edit_id=<?php echo $display['id']; ?>" class="btn btn-outline-primary btn-sm">Edit</a>
+              <a href="childrens.php?delete_id=<?php echo $display['id']; ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
             </td>
           </tr>
         <?php

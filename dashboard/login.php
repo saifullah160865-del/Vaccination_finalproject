@@ -29,49 +29,19 @@ if(isset($_POST['login'])){
 
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AdminLTE 4 | Login Page</title>
+    <title>Vaxcare | Medical Login</title>
 
-    <!--begin::Theme Init (prevents flash of incorrect theme on load, #6043)-->
+    <!--begin::Theme Init-->
     <script>
       (() => {
         'use strict';
         const root = document.documentElement;
-
-        // Applications with their own theming opt out of AdminLTE's color mode
-        // entirely, here as well as in the bundle.
-        if (root.getAttribute('data-lte-color-mode') === 'off') {
-          return;
-        }
-
-        const STORAGE_KEY = 'lte-theme';
-        let stored = null;
-        try {
-          stored = localStorage.getItem(STORAGE_KEY);
-        } catch {
-          // localStorage may be unavailable (private mode, sandboxed iframe).
-        }
-        // Mirror the precedence in color-mode.ts: the visitor's stored choice
-        // wins, then a theme this page declared itself, then the OS preference.
-        const authored = root.getAttribute('data-bs-theme');
-        let resolved = 'light';
-        if (stored === 'dark' || stored === 'light') {
-          resolved = stored;
-        } else if (authored === 'dark' || authored === 'light') {
-          resolved = authored;
-        } else if (globalThis.matchMedia('(prefers-color-scheme: dark)').matches) {
-          resolved = 'dark';
-        }
-        root.setAttribute('data-bs-theme', resolved);
-        root.style.colorScheme = resolved;
-        // Flag values computed here, so the bundle does not mistake them for a
-        // theme the page declared and stop following the OS preference.
-        if (resolved !== authored) {
-          root.setAttribute('data-lte-theme-resolved', '');
-        }
+        root.setAttribute('data-bs-theme', 'light');
+        root.style.colorScheme = 'light';
       })();
     </script>
     <!--end::Theme Init-->
@@ -132,18 +102,24 @@ if(isset($_POST['login'])){
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="css/adminlte.css" />
     <!--end::Required Plugin(AdminLTE)-->
+
+    <!--begin::Medical Theme-->
+    <link rel="stylesheet" href="css/medical-theme.css" />
+    <!--end::Medical Theme-->
   </head>
   <!--end::Head-->
   <!--begin::Body-->
-  <body class="login-page bg-body-secondary">
+  <body class="login-page">
     <main class="login-box">
-      <h1 class="login-logo">
-        <a href="../index2.html"><b>Admin</b>LTE</a>
+      <h1 class="login-logo mb-4">
+        <a href="index.php" class="text-primary fw-bold text-decoration-none fs-2">
+          <i class="bi bi-heart-pulse-fill me-2"></i>Vaxcare
+        </a>
       </h1>
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body login-card-body">
-          <p class="login-box-msg">Sign in to start your session</p>
+          <p class="login-box-msg text-secondary fw-semibold">Sign in to your medical session</p>
 
           <form method="post">
             <label class="visually-hidden" for="loginEmail">Email</label>
@@ -200,7 +176,7 @@ if(isset($_POST['login'])){
       crossorigin="anonymous"
     ></script>
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-    <script src="../js/adminlte.js"></script>
+    <script src="js/adminlte.js"></script>
     <!--end::Required Plugin(AdminLTE)-->
     <!--begin::OverlayScrollbars Configure-->
     <script>

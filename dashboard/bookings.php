@@ -8,7 +8,7 @@ include("base/header.php");
   </div>
 
   <div class="card-body">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -34,24 +34,15 @@ include("base/header.php");
         $execute = mysqli_query($conn, $query);
         $count = 1;
         while ($display = mysqli_fetch_array($execute)) {
-          if ($display['status'] == 'Approved') {
-            $badge = "bg-success";
-          } else if ($display['status'] == 'Rejected') {
-            $badge = "bg-danger";
-          } else if ($display['status'] == 'Completed') {
-            $badge = "bg-info";
-          } else {
-            $badge = "bg-warning text-dark";
-          }
         ?>
           <tr class="align-middle">
             <td><?php echo $count++; ?></td>
             <td><?php echo $display['parent_name']; ?><br><small class="text-muted"><?php echo $display['parent_email']; ?></small></td>
             <td><strong><?php echo $display['child_name']; ?></strong></td>
             <td><?php echo $display['hospital_name']; ?></td>
-            <td><?php echo $display['vaccine_name']; ?></td>
+            <td><span class="highlight"><?php echo $display['vaccine_name']; ?></span></td>
             <td><?php echo $display['booking_date']; ?></td>
-            <td><span class="badge <?php echo $badge; ?>"><?php echo $display['status']; ?></span></td>
+            <td><span class="badge badge-soft-blue"><?php echo $display['status']; ?></span></td>
             <td><?php echo $display['created_at']; ?></td>
           </tr>
         <?php

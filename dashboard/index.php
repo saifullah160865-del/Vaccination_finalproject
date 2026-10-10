@@ -1,7 +1,6 @@
 <?php
 include("base/header.php");
 
-
 $role = $_SESSION['role'];
 $uid = $_SESSION['user_id'];
 ?>
@@ -9,17 +8,14 @@ $uid = $_SESSION['user_id'];
 <main class="app-main">
   <div class="app-content-header">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row align-items-center">
         <div class="col-sm-6">
-          <h1 class="mb-0 fs-3">Dashboard (<?php echo ucfirst($role); ?> Panel)</h1>
+          <h1 class="mb-0 fs-3">Dashboard <span class="highlight">(<?php echo ucfirst($role); ?> Panel)</span></h1>
         </div>
-        <div class="col-sm-6">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb float-sm-end">
-              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-            </ol>
-          </nav>
+        <div class="col-sm-6 text-sm-end mt-2 mt-sm-0">
+          <span class="badge-accredited"><i class="bi bi-shield-check"></i> Accredited</span>
+          <span class="badge-emergency ms-2"><i class="bi bi-clock"></i> 24/7 Emergency</span>
+          <span class="trust-badge-pill ms-2"><i class="bi bi-star-fill star-highlight"></i> 4.9/5 Rating</span>
         </div>
       </div>
     </div>
@@ -35,49 +31,49 @@ $uid = $_SESSION['user_id'];
       ?>
       <div class="row">
         <div class="col-lg-3 col-6">
-          <div class="small-box text-bg-primary">
+          <div class="small-box stat-card-medical">
             <div class="inner">
-              <h3><?php echo $total_children; ?></h3>
+              <h3 class="stat-number"><?php echo $total_children; ?></h3>
               <p>Total Children</p>
             </div>
-            <a href="childrens.php" class="small-box-footer link-light link-underline-opacity-0">
-              View Children <i class="bi bi-arrow-right"></i>
+            <a href="childrens.php" class="small-box-footer">
+              <span>View Children</span> <i class="bi bi-arrow-right"></i>
             </a>
           </div>
         </div>
 
         <div class="col-lg-3 col-6">
-          <div class="small-box text-bg-success">
+          <div class="small-box stat-card-medical">
             <div class="inner">
-              <h3><?php echo $total_hospitals; ?></h3>
+              <h3 class="stat-number"><?php echo $total_hospitals; ?></h3>
               <p>Total Hospitals</p>
             </div>
-            <a href="hospitals_list.php" class="small-box-footer link-light link-underline-opacity-0">
-              View Hospitals <i class="bi bi-arrow-right"></i>
+            <a href="hospitals_list.php" class="small-box-footer">
+              <span>View Hospitals</span> <i class="bi bi-arrow-right"></i>
             </a>
           </div>
         </div>
 
         <div class="col-lg-3 col-6">
-          <div class="small-box text-bg-warning">
+          <div class="small-box stat-card-medical">
             <div class="inner">
-              <h3><?php echo $total_vaccines; ?></h3>
+              <h3 class="stat-number"><?php echo $total_vaccines; ?></h3>
               <p>Available Vaccines</p>
             </div>
-            <a href="vaccines_list.php" class="small-box-footer link-dark link-underline-opacity-0">
-              Manage Vaccines <i class="bi bi-arrow-right"></i>
+            <a href="vaccines_list.php" class="small-box-footer">
+              <span>Manage Vaccines</span> <i class="bi bi-arrow-right"></i>
             </a>
           </div>
         </div>
 
         <div class="col-lg-3 col-6">
-          <div class="small-box text-bg-danger">
+          <div class="small-box stat-card-medical">
             <div class="inner">
-              <h3><?php echo $total_bookings; ?></h3>
+              <h3 class="stat-number"><?php echo $total_bookings; ?></h3>
               <p>Total Bookings</p>
             </div>
-            <a href="parent_requests.php" class="small-box-footer link-light link-underline-opacity-0">
-              Review Requests <i class="bi bi-arrow-right"></i>
+            <a href="parent_requests.php" class="small-box-footer">
+              <span>Review Requests</span> <i class="bi bi-arrow-right"></i>
             </a>
           </div>
         </div>
@@ -111,7 +107,7 @@ $uid = $_SESSION['user_id'];
                   if (mysqli_num_rows($p_req) > 0) {
                     while ($r = mysqli_fetch_array($p_req)) {
                       echo "<tr>
-                              <td>".$r['parent_name']."</td>
+                              <td><strong>".$r['parent_name']."</strong></td>
                               <td>".$r['child_name']."</td>
                               <td>".$r['hospital_name']."</td>
                               <td>".$r['booking_date']."</td>
@@ -154,10 +150,10 @@ $uid = $_SESSION['user_id'];
                   if (mysqli_num_rows($up_q) > 0) {
                     while ($u = mysqli_fetch_array($up_q)) {
                       echo "<tr>
-                              <td>".$u['child_name']."</td>
+                              <td><strong>".$u['child_name']."</strong></td>
                               <td>".$u['vaccine_name']."</td>
                               <td>".$u['vaccination_date']."</td>
-                              <td><span class='badge bg-warning text-dark'>".$u['status']."</span></td>
+                              <td><span class='badge badge-soft-blue'>".$u['status']."</span></td>
                             </tr>";
                     }
                   } else {
@@ -179,57 +175,57 @@ $uid = $_SESSION['user_id'];
       ?>
       <div class="row">
         <div class="col-lg-3 col-6">
-          <div class="small-box text-bg-primary">
+          <div class="small-box stat-card-medical">
             <div class="inner">
-              <h3><?php echo $p_children; ?></h3>
+              <h3 class="stat-number"><?php echo $p_children; ?></h3>
               <p>My Registered Children</p>
             </div>
-            <a href="childrens.php" class="small-box-footer link-light link-underline-opacity-0">
-              Manage Children <i class="bi bi-arrow-right"></i>
+            <a href="childrens.php" class="small-box-footer">
+              <span>Manage Children</span> <i class="bi bi-arrow-right"></i>
             </a>
           </div>
         </div>
 
         <div class="col-lg-3 col-6">
-          <div class="small-box text-bg-warning">
+          <div class="small-box stat-card-medical">
             <div class="inner">
-              <h3><?php echo $p_upcoming; ?></h3>
+              <h3 class="stat-number"><?php echo $p_upcoming; ?></h3>
               <p>Upcoming Vaccinations</p>
             </div>
-            <a href="vaccination_dates.php" class="small-box-footer link-dark link-underline-opacity-0">
-              View Schedules <i class="bi bi-arrow-right"></i>
+            <a href="vaccination_dates.php" class="small-box-footer">
+              <span>View Schedules</span> <i class="bi bi-arrow-right"></i>
             </a>
           </div>
         </div>
 
         <div class="col-lg-3 col-6">
-          <div class="small-box text-bg-info">
+          <div class="small-box stat-card-medical">
             <div class="inner">
-              <h3><?php echo $p_bookings; ?></h3>
+              <h3 class="stat-number"><?php echo $p_bookings; ?></h3>
               <p>My Hospital Bookings</p>
             </div>
-            <a href="my_bookings.php" class="small-box-footer link-light link-underline-opacity-0">
-              Booking Status <i class="bi bi-arrow-right"></i>
+            <a href="my_bookings.php" class="small-box-footer">
+              <span>Booking Status</span> <i class="bi bi-arrow-right"></i>
             </a>
           </div>
         </div>
 
         <div class="col-lg-3 col-6">
-          <div class="small-box text-bg-success">
+          <div class="small-box stat-card-medical">
             <div class="inner">
-              <h3><?php echo $p_reports; ?></h3>
+              <h3 class="stat-number"><?php echo $p_reports; ?></h3>
               <p>Vaccinations Completed</p>
             </div>
-            <a href="my_reports.php" class="small-box-footer link-light link-underline-opacity-0">
-              View Reports <i class="bi bi-arrow-right"></i>
+            <a href="my_reports.php" class="small-box-footer">
+              <span>View Reports</span> <i class="bi bi-arrow-right"></i>
             </a>
           </div>
         </div>
       </div>
 
-      <div class="card card-warning card-outline mb-4">
+      <div class="card card-primary card-outline mb-4">
         <div class="card-header">
-          <h3 class="card-title text-warning"><i class="bi bi-bell-fill me-2"></i> Upcoming Vaccination Notifications</h3>
+          <h3 class="card-title text-primary"><i class="bi bi-bell-fill me-2"></i> Upcoming Vaccination Notifications</h3>
         </div>
         <div class="card-body">
           <?php
@@ -244,7 +240,7 @@ $uid = $_SESSION['user_id'];
             while ($n = mysqli_fetch_array($notif_q)) {
               echo "<div class='list-group-item list-group-item-action d-flex justify-content-between align-items-center'>
                       <div>
-                        <h6 class='mb-1'><strong>".$n['child_name']."</strong> is scheduled for <strong>".$n['vaccine_name']."</strong></h6>
+                        <h6 class='mb-1'><strong>".$n['child_name']."</strong> is scheduled for <span class='highlight'>".$n['vaccine_name']."</span></h6>
                         <small class='text-muted'>Scheduled Date: ".$n['vaccination_date']."</small>
                       </div>
                       <a href='book_hospital.php?child_id=".$n['child_id']."&vaccination_id=".$n['id']."' class='btn btn-sm btn-primary'>Book Hospital Now</a>
@@ -270,49 +266,49 @@ $uid = $_SESSION['user_id'];
       ?>
       <div class="row">
         <div class="col-lg-3 col-6">
-          <div class="small-box text-bg-primary">
+          <div class="small-box stat-card-medical">
             <div class="inner">
-              <h3><?php echo $h_total_b; ?></h3>
+              <h3 class="stat-number"><?php echo $h_total_b; ?></h3>
               <p>Total Bookings</p>
             </div>
-            <a href="hospital_bookings.php" class="small-box-footer link-light link-underline-opacity-0">
-              View Appointments <i class="bi bi-arrow-right"></i>
+            <a href="hospital_bookings.php" class="small-box-footer">
+              <span>View Appointments</span> <i class="bi bi-arrow-right"></i>
             </a>
           </div>
         </div>
 
         <div class="col-lg-3 col-6">
-          <div class="small-box text-bg-warning">
+          <div class="small-box stat-card-medical">
             <div class="inner">
-              <h3><?php echo $h_pending_b; ?></h3>
+              <h3 class="stat-number"><?php echo $h_pending_b; ?></h3>
               <p>Pending Vaccinations</p>
             </div>
-            <a href="hospital_bookings.php" class="small-box-footer link-dark link-underline-opacity-0">
-              Update Status <i class="bi bi-arrow-right"></i>
+            <a href="hospital_bookings.php" class="small-box-footer">
+              <span>Update Status</span> <i class="bi bi-arrow-right"></i>
             </a>
           </div>
         </div>
 
         <div class="col-lg-3 col-6">
-          <div class="small-box text-bg-success">
+          <div class="small-box stat-card-medical">
             <div class="inner">
-              <h3><?php echo $h_done_b; ?></h3>
+              <h3 class="stat-number"><?php echo $h_done_b; ?></h3>
               <p>Completed Vaccinations</p>
             </div>
-            <a href="hospital_bookings.php" class="small-box-footer link-light link-underline-opacity-0">
-              View Reports <i class="bi bi-arrow-right"></i>
+            <a href="hospital_bookings.php" class="small-box-footer">
+              <span>View Reports</span> <i class="bi bi-arrow-right"></i>
             </a>
           </div>
         </div>
 
         <div class="col-lg-3 col-6">
-          <div class="small-box text-bg-info">
+          <div class="small-box stat-card-medical">
             <div class="inner">
-              <h3><?php echo $h_vaccines; ?></h3>
+              <h3 class="stat-number"><?php echo $h_vaccines; ?></h3>
               <p>Available Vaccines</p>
             </div>
-            <a href="vaccines_list.php" class="small-box-footer link-light link-underline-opacity-0">
-              Check Vaccines <i class="bi bi-arrow-right"></i>
+            <a href="vaccines_list.php" class="small-box-footer">
+              <span>Check Vaccines</span> <i class="bi bi-arrow-right"></i>
             </a>
           </div>
         </div>

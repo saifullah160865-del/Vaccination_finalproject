@@ -68,7 +68,7 @@
                 </div>
                 <div class="emergency-info">
                   <small>Emergency Hotline</small>
-                  <strong>+1 (555) 911-2468</strong>
+                  <strong>+92 300 2160865</strong>
                 </div>
               </div>
             </div>

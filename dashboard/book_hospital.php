@@ -40,7 +40,7 @@ if (isset($_POST['book_appointment'])) {
   <div class="col-lg-8 mx-auto">
     <div class="card card-primary card-outline mb-4">
       <div class="card-header">
-        <h3 class="card-title">Book Hospital Vaccination Appointment</h3>
+        <h3 class="card-title text-primary"><i class="bi bi-calendar-plus me-2"></i> Book Hospital Vaccination Appointment</h3>
       </div>
 
       <?php if ($err != "") { ?>

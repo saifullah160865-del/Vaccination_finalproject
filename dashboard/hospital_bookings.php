@@ -83,7 +83,7 @@ if (isset($_GET['update_id'])) {
           </div>
         </div>
 
-        <button type="submit" name="save_status" class="btn btn-success">Save Vaccination Status</button>
+        <button type="submit" name="save_status" class="btn btn-primary">Save Vaccination Status</button>
         <a href="hospital_bookings.php" class="btn btn-secondary">Cancel</a>
       </form>
     </div>
@@ -91,7 +91,7 @@ if (isset($_GET['update_id'])) {
   <?php } ?>
 
   <div class="card-body">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -122,16 +122,15 @@ if (isset($_GET['update_id'])) {
         if (mysqli_num_rows($execute) > 0) {
           while ($display = mysqli_fetch_array($execute)) {
             $v_status = $display['rep_status'] ? $display['rep_status'] : "Pending";
-            $badge = ($v_status == 'Vaccinated') ? 'bg-success' : (($v_status == 'Not Vaccinated') ? 'bg-danger' : 'bg-warning text-dark');
           ?>
             <tr class="align-middle">
               <td><?php echo $count++; ?></td>
               <td><strong><?php echo $display['child_name']; ?></strong><br><small class="text-muted">DOB: <?php echo $display['date_of_birth']; ?></small></td>
               <td><?php echo $display['parent_name']; ?></td>
-              <td><?php echo $display['vaccine_name']; ?></td>
+              <td><span class="highlight"><?php echo $display['vaccine_name']; ?></span></td>
               <td><?php echo $display['booking_date']; ?></td>
-              <td><span class="badge bg-info"><?php echo $display['status']; ?></span></td>
-              <td><span class="badge <?php echo $badge; ?>"><?php echo $v_status; ?></span></td>
+              <td><span class="badge badge-soft-blue"><?php echo $display['status']; ?></span></td>
+              <td><span class="badge badge-soft-blue"><?php echo $v_status; ?></span></td>
               <td><?php echo $display['remarks'] ? $display['remarks'] : '-'; ?></td>
               <td>
                 <a href="hospital_bookings.php?update_id=<?php echo $display['id']; ?>" class="btn btn-primary btn-sm">Update Status</a>

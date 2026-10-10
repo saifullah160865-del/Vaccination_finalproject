@@ -1,5 +1,4 @@
 <?php
-include("base/header.php");
 session_start();
 $host = "localhost";
 $username = "root";

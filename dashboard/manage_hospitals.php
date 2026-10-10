@@ -38,8 +38,8 @@ if (isset($_GET['edit_id'])) {
 
   <?php if ($edit_data) { ?>
   <div class="card mb-4 m-3">
-    <div class="card-header bg-warning text-dark">
-      <h3 class="card-title">Update Hospital Details</h3>
+    <div class="card-header">
+      <h3 class="card-title text-primary"><i class="bi bi-pencil-square me-2"></i> Update Hospital Details</h3>
     </div>
     <div class="card-body">
       <form method="POST">
@@ -67,7 +67,7 @@ if (isset($_GET['edit_id'])) {
           <label>Address</label>
           <textarea name="address" class="form-control" rows="2" required><?php echo $edit_data['address']; ?></textarea>
         </div>
-        <button type="submit" name="update_hospital" class="btn btn-warning">Save Changes</button>
+        <button type="submit" name="update_hospital" class="btn btn-primary">Save Changes</button>
         <a href="manage_hospitals.php" class="btn btn-secondary">Cancel</a>
       </form>
     </div>
@@ -75,7 +75,7 @@ if (isset($_GET['edit_id'])) {
   <?php } ?>
 
   <div class="card-body">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -99,11 +99,11 @@ if (isset($_GET['edit_id'])) {
             <td><strong><?php echo $display['hospital_name']; ?></strong></td>
             <td><?php echo $display['email']; ?></td>
             <td><?php echo $display['phone']; ?></td>
-            <td><?php echo $display['location']; ?></td>
+            <td><span class="badge badge-soft-blue"><?php echo $display['location']; ?></span></td>
             <td><?php echo $display['address']; ?></td>
             <td class="text-nowrap">
-              <a href="manage_hospitals.php?edit_id=<?php echo $display['id']; ?>" class="btn btn-danger btn-sm btn-outline-light">Edit</a>
-              <a href="manage_hospitals.php?delete_id=<?php echo $display['id']; ?>" class="btn btn-primary btn-sm btn-outline-light" onclick="return confirm('Are you sure?')">Delete</a>
+              <a href="manage_hospitals.php?edit_id=<?php echo $display['id']; ?>" class="btn btn-outline-primary btn-sm">Edit</a>
+              <a href="manage_hospitals.php?delete_id=<?php echo $display['id']; ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
             </td>
           </tr>
         <?php

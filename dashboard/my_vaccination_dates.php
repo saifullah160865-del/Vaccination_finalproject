@@ -11,7 +11,7 @@ $uid = $_SESSION['user_id'];
   </div>
 
   <div class="card-body">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -34,19 +34,18 @@ $uid = $_SESSION['user_id'];
         $count = 1;
         if (mysqli_num_rows($execute) > 0) {
           while ($display = mysqli_fetch_array($execute)) {
-            $badge = ($display['status'] == 'Completed') ? 'bg-success' : 'bg-warning text-dark';
           ?>
             <tr class="align-middle">
               <td><?php echo $count++; ?></td>
               <td><strong><?php echo $display['child_name']; ?></strong></td>
-              <td><?php echo $display['vaccine_name']; ?></td>
+              <td><span class="highlight"><?php echo $display['vaccine_name']; ?></span></td>
               <td><?php echo $display['vaccination_date']; ?></td>
-              <td><span class="badge <?php echo $badge; ?>"><?php echo $display['status']; ?></span></td>
+              <td><span class="badge badge-soft-blue"><?php echo $display['status']; ?></span></td>
               <td>
                 <?php if ($display['status'] == 'Pending') { ?>
                   <a href="book_hospital.php?child_id=<?php echo $display['child_id']; ?>&vaccination_id=<?php echo $display['id']; ?>" class="btn btn-primary btn-sm">Book Hospital</a>
                 <?php } else { ?>
-                  <span class="text-success"><i class="bi bi-check-circle-fill"></i> Completed</span>
+                  <span class="text-primary fw-semibold"><i class="bi bi-check-circle-fill"></i> Completed</span>
                 <?php } ?>
               </td>
             </tr>

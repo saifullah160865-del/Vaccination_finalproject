@@ -24,7 +24,7 @@ if (isset($_GET['delete_id'])) {
   </div>
 
   <div class="card-body">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -50,12 +50,12 @@ if (isset($_GET['delete_id'])) {
             <td><strong><?php echo $display['hospital_name']; ?></strong></td>
             <td><?php echo $display['email']; ?></td>
             <td><?php echo $display['phone']; ?></td>
-            <td><?php echo $display['location']; ?></td>
+            <td><span class="badge badge-soft-blue"><?php echo $display['location']; ?></span></td>
             <td><?php echo $display['address']; ?></td>
             <?php if ($_SESSION['role'] == 'admin') { ?>
             <td class="text-nowrap">
-              <a href="manage_hospitals.php?edit_id=<?php echo $display['id']; ?>" class="btn btn-danger btn-sm btn-outline-light">Edit</a>
-              <a href="hospitals_list.php?delete_id=<?php echo $display['id']; ?>" class="btn btn-primary btn-sm btn-outline-light" onclick="return confirm('Are you sure you want to delete this hospital?')">Delete</a>
+              <a href="manage_hospitals.php?edit_id=<?php echo $display['id']; ?>" class="btn btn-outline-primary btn-sm">Edit</a>
+              <a href="hospitals_list.php?delete_id=<?php echo $display['id']; ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('Are you sure you want to delete this hospital?')">Delete</a>
             </td>
             <?php } ?>
           </tr>

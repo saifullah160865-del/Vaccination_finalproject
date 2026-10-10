@@ -1,6 +1,5 @@
 <?php
 include("base/header.php");
-include("config/db.php");
 
 if (isset($_GET['delete_id'])) {
   $delete_id = $_GET['delete_id'];
@@ -48,8 +47,8 @@ if (isset($_GET['edit_id'])) {
 
   <?php if ($edit_data) { ?>
   <div class="card mb-4 m-3">
-    <div class="card-header bg-warning text-dark">
-      <h3 class="card-title">Edit Vaccine</h3>
+    <div class="card-header">
+      <h3 class="card-title text-primary"><i class="bi bi-pencil-square me-2"></i> Edit Vaccine</h3>
     </div>
     <div class="card-body">
       <form method="POST">
@@ -69,7 +68,7 @@ if (isset($_GET['edit_id'])) {
             <option value="Unavailable" <?php if ($edit_data['status'] == 'Unavailable') echo 'selected'; ?>>Unavailable</option>
           </select>
         </div>
-        <button type="submit" name="update_vaccine" class="btn btn-warning">Update Vaccine</button>
+        <button type="submit" name="update_vaccine" class="btn btn-primary">Update Vaccine</button>
         <a href="vaccines_list.php" class="btn btn-secondary">Cancel</a>
       </form>
     </div>
@@ -77,7 +76,7 @@ if (isset($_GET['edit_id'])) {
   <?php } else if ($_SESSION['role'] == 'admin') { ?>
   <div class="card mb-4 m-3">
     <div class="card-header">
-      <h3 class="card-title">Add New Vaccine</h3>
+      <h3 class="card-title text-primary"><i class="bi bi-plus-circle me-2"></i> Add New Vaccine</h3>
     </div>
     <div class="card-body">
       <form method="POST">
@@ -103,7 +102,7 @@ if (isset($_GET['edit_id'])) {
   <?php } ?>
 
   <div class="card-body">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -121,7 +120,7 @@ if (isset($_GET['edit_id'])) {
         $execute = mysqli_query($conn, $query);
         $count = 1;
         while ($display = mysqli_fetch_array($execute)) {
-          $status_badge = ($display['status'] == 'Available') ? 'bg-success' : 'bg-danger';
+          $status_badge = ($display['status'] == 'Available') ? 'badge-soft-blue' : 'badge-soft-secondary';
         ?>
           <tr class="align-middle">
             <td><?php echo $count++; ?></td>
@@ -135,13 +134,13 @@ if (isset($_GET['edit_id'])) {
             <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'hospital') { ?>
             <td class="text-nowrap">
               <?php if ($display['status'] == 'Available') { ?>
-                <a href="vaccines_list.php?toggle_id=<?php echo $display['id']; ?>&new_status=Unavailable" class="btn btn-warning btn-sm">Mark Unavailable</a>
+                <a href="vaccines_list.php?toggle_id=<?php echo $display['id']; ?>&new_status=Unavailable" class="btn btn-outline-secondary btn-sm">Mark Unavailable</a>
               <?php } else { ?>
-                <a href="vaccines_list.php?toggle_id=<?php echo $display['id']; ?>&new_status=Available" class="btn btn-success btn-sm">Mark Available</a>
+                <a href="vaccines_list.php?toggle_id=<?php echo $display['id']; ?>&new_status=Available" class="btn btn-outline-primary btn-sm">Mark Available</a>
               <?php } ?>
               <?php if ($_SESSION['role'] == 'admin') { ?>
-                <a href="vaccines_list.php?edit_id=<?php echo $display['id']; ?>" class="btn btn-danger btn-sm btn-outline-light">Edit</a>
-                <a href="vaccines_list.php?delete_id=<?php echo $display['id']; ?>" class="btn btn-primary btn-sm btn-outline-light" onclick="return confirm('Are you sure?')">Delete</a>
+                <a href="vaccines_list.php?edit_id=<?php echo $display['id']; ?>" class="btn btn-outline-primary btn-sm">Edit</a>
+                <a href="vaccines_list.php?delete_id=<?php echo $display['id']; ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
               <?php } ?>
             </td>
             <?php } ?>

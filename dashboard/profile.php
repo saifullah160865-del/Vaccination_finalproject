@@ -46,7 +46,7 @@ if ($role == 'hospital') {
   <div class="col-lg-8 mx-auto">
     <div class="card card-primary card-outline mb-4">
       <div class="card-header">
-        <h3 class="card-title">My Profile</h3>
+        <h3 class="card-title text-primary"><i class="bi bi-person-badge me-2"></i> My Profile</h3>
       </div>
 
       <?php if ($msg != "") { ?>

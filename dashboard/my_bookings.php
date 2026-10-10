@@ -17,7 +17,7 @@ if (isset($_GET['cancel_id'])) {
   </div>
 
   <div class="card-body">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -44,27 +44,18 @@ if (isset($_GET['cancel_id'])) {
         $count = 1;
         if (mysqli_num_rows($execute) > 0) {
           while ($display = mysqli_fetch_array($execute)) {
-            if ($display['status'] == 'Approved') {
-              $badge = "bg-success";
-            } else if ($display['status'] == 'Rejected') {
-              $badge = "bg-danger";
-            } else if ($display['status'] == 'Completed') {
-              $badge = "bg-info";
-            } else {
-              $badge = "bg-warning text-dark";
-            }
           ?>
             <tr class="align-middle">
               <td><?php echo $count++; ?></td>
               <td><strong><?php echo $display['child_name']; ?></strong></td>
               <td><?php echo $display['hospital_name']; ?></td>
-              <td><?php echo $display['location']; ?></td>
-              <td><?php echo $display['vaccine_name']; ?></td>
+              <td><span class="badge badge-soft-blue"><?php echo $display['location']; ?></span></td>
+              <td><span class="highlight"><?php echo $display['vaccine_name']; ?></span></td>
               <td><?php echo $display['booking_date']; ?></td>
-              <td><span class="badge <?php echo $badge; ?>"><?php echo $display['status']; ?></span></td>
+              <td><span class="badge badge-soft-blue"><?php echo $display['status']; ?></span></td>
               <td>
                 <?php if ($display['status'] == 'Pending') { ?>
-                  <a href="my_bookings.php?cancel_id=<?php echo $display['id']; ?>" class="btn btn-danger btn-sm btn-outline-light" onclick="return confirm('Cancel this booking request?')">Cancel</a>
+                  <a href="my_bookings.php?cancel_id=<?php echo $display['id']; ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('Cancel this booking request?')">Cancel</a>
                 <?php } else { ?>
                   <span class="text-muted"><?php echo $display['status']; ?></span>
                 <?php } ?>

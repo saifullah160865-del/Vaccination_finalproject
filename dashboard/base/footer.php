@@ -1,14 +1,17 @@
   <!--begin::Footer-->
       <footer class="app-footer">
         <!--begin::To the end-->
-        <div class="float-end d-none d-sm-inline">Anything you want</div>
+        <div class="float-end d-none d-sm-inline">
+          <span class="badge-accredited"><i class="bi bi-shield-check"></i> Accredited</span>
+          <span class="badge-emergency ms-2"><i class="bi bi-clock"></i> 24/7 Support</span>
+        </div>
         <!--end::To the end-->
         <!--begin::Copyright-->
         <strong>
-          Copyright &copy; 2014-2026&nbsp;
-          <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+          Copyright &copy; 2026&nbsp;
+          <a href="index.php" class="text-primary text-decoration-none fw-semibold">Vaxcare</a>.
         </strong>
-        All rights reserved.
+        Infant Vaccination Management System.
         <!--end::Copyright-->
       </footer>
       <!--end::Footer-->
@@ -31,7 +34,7 @@
       crossorigin="anonymous"
     ></script>
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-    <script src="/js/adminlte.js"></script>
+    <script src="./js/adminlte.js"></script>
     <!--end::Required Plugin(AdminLTE)-->
     <!--begin::OverlayScrollbars Configure-->
     <script>

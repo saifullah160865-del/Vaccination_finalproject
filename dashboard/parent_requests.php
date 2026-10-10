@@ -19,7 +19,7 @@ if (isset($_GET['action']) && isset($_GET['booking_id'])) {
   </div>
 
   <div class="card-body">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -45,28 +45,19 @@ if (isset($_GET['action']) && isset($_GET['booking_id'])) {
         $execute = mysqli_query($conn, $query);
         $count = 1;
         while ($display = mysqli_fetch_array($execute)) {
-          if ($display['status'] == 'Approved') {
-            $badge = "bg-success";
-          } else if ($display['status'] == 'Rejected') {
-            $badge = "bg-danger";
-          } else if ($display['status'] == 'Completed') {
-            $badge = "bg-info";
-          } else {
-            $badge = "bg-warning text-dark";
-          }
         ?>
           <tr class="align-middle">
             <td><?php echo $count++; ?></td>
             <td><strong><?php echo $display['parent_name']; ?></strong></td>
             <td><?php echo $display['child_name']; ?></td>
             <td><?php echo $display['hospital_name']; ?></td>
-            <td><?php echo $display['vaccine_name']; ?></td>
+            <td><span class="highlight"><?php echo $display['vaccine_name']; ?></span></td>
             <td><?php echo $display['booking_date']; ?></td>
-            <td><span class="badge <?php echo $badge; ?>"><?php echo $display['status']; ?></span></td>
+            <td><span class="badge badge-soft-blue"><?php echo $display['status']; ?></span></td>
             <td class="text-nowrap">
               <?php if ($display['status'] == 'Pending') { ?>
-                <a href="parent_requests.php?action=approve&booking_id=<?php echo $display['id']; ?>" class="btn btn-success btn-sm">Approve</a>
-                <a href="parent_requests.php?action=reject&booking_id=<?php echo $display['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to reject this request?')">Reject</a>
+                <a href="parent_requests.php?action=approve&booking_id=<?php echo $display['id']; ?>" class="btn btn-primary btn-sm">Approve</a>
+                <a href="parent_requests.php?action=reject&booking_id=<?php echo $display['id']; ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('Are you sure you want to reject this request?')">Reject</a>
               <?php } else { ?>
                 <span class="text-secondary"><?php echo $display['status']; ?></span>
               <?php } ?>

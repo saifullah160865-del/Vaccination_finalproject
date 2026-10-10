@@ -2,55 +2,24 @@
 include("config/db.php");
 if (!isset($_SESSION['user_id'])) {
   header("Location: login.php");
-  exit;
 }
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <!--begin::Head-->
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>VMS | Dashboard</title>
+  <title> Vaxcare | Medical Dashboard</title>
 
-  <!--begin::Theme Init (prevents flash of incorrect theme on load, #6043)-->
+  <!--begin::Theme Init-->
   <script>
     (() => {
       'use strict';
       const root = document.documentElement;
-
-      // Applications with their own theming opt out of AdminLTE's color mode
-      // entirely, here as well as in the bundle.
-      if (root.getAttribute('data-lte-color-mode') === 'off') {
-        return;
-      }
-
-      const STORAGE_KEY = 'lte-theme';
-      let stored = null;
-      try {
-        stored = localStorage.getItem(STORAGE_KEY);
-      } catch {
-        // localStorage may be unavailable (private mode, sandboxed iframe).
-      }
-      // Mirror the precedence in color-mode.ts: the visitor's stored choice
-      // wins, then a theme this page declared itself, then the OS preference.
-      const authored = root.getAttribute('data-bs-theme');
-      let resolved = 'light';
-      if (stored === 'dark' || stored === 'light') {
-        resolved = stored;
-      } else if (authored === 'dark' || authored === 'light') {
-        resolved = authored;
-      } else if (globalThis.matchMedia('(prefers-color-scheme: dark)').matches) {
-        resolved = 'dark';
-      }
-      root.setAttribute('data-bs-theme', resolved);
-      root.style.colorScheme = resolved;
-      // Flag values computed here, so the bundle does not mistake them for a
-      // theme the page declared and stop following the OS preference.
-      if (resolved !== authored) {
-        root.setAttribute('data-lte-theme-resolved', '');
-      }
+      root.setAttribute('data-bs-theme', 'light');
+      root.style.colorScheme = 'light';
     })();
   </script>
   <!--end::Theme Init-->
@@ -107,6 +76,10 @@ if (!isset($_SESSION['user_id'])) {
   <link rel="stylesheet" href="./css/adminlte.css" />
   <!--end::Required Plugin(AdminLTE)-->
 
+  <!--begin::Medical Theme (Royal Blue, Pure White/Soft Blue, Charcoal/Navy)-->
+  <link rel="stylesheet" href="./css/medical-theme.css" />
+  <!--end::Medical Theme-->
+
   <!-- jsvectormap -->
   <link
     rel="stylesheet"
@@ -117,11 +90,11 @@ if (!isset($_SESSION['user_id'])) {
 <!--end::Head-->
 <!--begin::Body-->
 
-<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<body class="layout-fixed sidebar-expand-lg">
   <!--begin::App Wrapper-->
   <div class="app-wrapper">
     <!--begin::Header-->
-    <nav class="app-header navbar navbar-expand bg-body">
+    <nav class="app-header navbar navbar-expand bg-white">
       <!--begin::Container-->
       <div class="container-fluid">
         <!--begin::Start Navbar Links-->
@@ -137,41 +110,7 @@ if (!isset($_SESSION['user_id'])) {
             </a>
           </li>
 
-          <li class="nav-item d-none d-md-block">
-            <a href="./index.html" class="nav-link">
-              <i class="bi bi-grid-1x2 me-1" aria-hidden="true"></i>
-              Live preview
-            </a>
-          </li>
-          <li class="nav-item d-none d-md-block">
-            <a href="./docs/introduction.html" class="nav-link">
-              <i class="bi bi-book me-1" aria-hidden="true"></i>
-              Documentation
-            </a>
-          </li>
         </ul>
-        <!--end::Start Navbar Links-->
-
-        <!--begin::Navbar Search-->
-        <form
-          class="navbar-search d-none d-md-block ms-3"
-          role="search"
-          action="./pages/search-results.html">
-          <label for="navbar-search-input" class="visually-hidden">Search</label>
-          <div class="navbar-search-field">
-            <input
-              type="search"
-              id="navbar-search-input"
-              name="q"
-              class="form-control"
-              placeholder="Search…"
-              autocomplete="off" />
-            <button class="navbar-search-submit" type="submit" aria-label="Submit search">
-              <i class="bi bi-search" aria-hidden="true"></i>
-            </button>
-          </div>
-        </form>
-        <!--end::Navbar Search-->
 
         <!--begin::End Navbar Links-->
         <ul class="navbar-nav ms-auto">
@@ -181,223 +120,6 @@ if (!isset($_SESSION['user_id'])) {
               <i class="bi bi-search" aria-hidden="true"></i>
             </a>
           </li>
-          <!--end::Search-->
-          <!--begin::Messages Dropdown Menu-->
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link"
-              data-bs-toggle="dropdown"
-              href="#"
-              aria-label="Messages: 3 unread">
-              <i class="bi bi-chat-text"></i>
-              <span class="navbar-badge badge text-bg-danger">3</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-              <a href="#" class="dropdown-item">
-                <!--begin::Message-->
-                <div class="d-flex">
-                  <div class="flex-shrink-0">
-                    <img
-                      src="./assets/img/user1-128x128.jpg"
-                      alt=""
-                      class="img-size-50 rounded-circle me-3" />
-                  </div>
-                  <div class="flex-grow-1">
-                    <p class="dropdown-item-title">
-                      Brad Diesel
-                      <span class="float-end fs-7 text-danger"><i class="bi bi-star-fill"></i></span>
-                    </p>
-                    <p class="fs-7">Call me whenever you can...</p>
-                    <p class="fs-7 text-secondary">
-                      <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                <!--end::Message-->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <!--begin::Message-->
-                <div class="d-flex">
-                  <div class="flex-shrink-0">
-                    <img
-                      src="./assets/img/user8-128x128.jpg"
-                      alt=""
-                      class="img-size-50 rounded-circle me-3" />
-                  </div>
-                  <div class="flex-grow-1">
-                    <p class="dropdown-item-title">
-                      John Pierce
-                      <span class="float-end fs-7 text-secondary">
-                        <i class="bi bi-star-fill"></i>
-                      </span>
-                    </p>
-                    <p class="fs-7">I got your message bro</p>
-                    <p class="fs-7 text-secondary">
-                      <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                <!--end::Message-->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <!--begin::Message-->
-                <div class="d-flex">
-                  <div class="flex-shrink-0">
-                    <img
-                      src="./assets/img/user3-128x128.jpg"
-                      alt=""
-                      class="img-size-50 rounded-circle me-3" />
-                  </div>
-                  <div class="flex-grow-1">
-                    <p class="dropdown-item-title">
-                      Nora Silvester
-                      <span class="float-end fs-7 text-warning">
-                        <i class="bi bi-star-fill"></i>
-                      </span>
-                    </p>
-                    <p class="fs-7">The subject goes here</p>
-                    <p class="fs-7 text-secondary">
-                      <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                <!--end::Message-->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-            </div>
-          </li>
-          <!--end::Messages Dropdown Menu-->
-
-          <!--begin::Notifications Dropdown Menu-->
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link"
-              data-bs-toggle="dropdown"
-              href="#"
-              aria-label="Notifications: 15 unread">
-              <i class="bi bi-bell-fill"></i>
-              <span class="navbar-badge badge text-bg-warning">15</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-              <span class="dropdown-item dropdown-header">15 Notifications</span>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="bi bi-envelope me-2"></i> 4 new messages
-                <span class="float-end text-secondary fs-7">3 mins</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="bi bi-people-fill me-2"></i> 8 friend requests
-                <span class="float-end text-secondary fs-7">12 hours</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="bi bi-file-earmark-fill me-2"></i> 3 new reports
-                <span class="float-end text-secondary fs-7">2 days</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item dropdown-footer"> See All Notifications </a>
-            </div>
-          </li>
-          <!--end::Notifications Dropdown Menu-->
-
-          <!--begin::Language Menu-->
-          <!-- Markup only: swapping the locale is the application's job. The docs
-           Recipes page shows how to wire this to a real locale switch. -->
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link"
-              href="#"
-              id="language-menu"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              aria-label="Change language, current language English">
-              <i class="bi bi-translate" aria-hidden="true"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="language-menu">
-              <li>
-                <a class="dropdown-item active" href="#" hreflang="en" aria-current="true">
-                  English
-                  <i class="bi bi-check-lg ms-2" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li><a class="dropdown-item" href="#" hreflang="es">Español</a></li>
-              <li><a class="dropdown-item" href="#" hreflang="fr">Français</a></li>
-              <li><a class="dropdown-item" href="#" hreflang="de">Deutsch</a></li>
-              <li><a class="dropdown-item" href="#" hreflang="ar">العربية</a></li>
-            </ul>
-          </li>
-          <!--end::Language Menu-->
-
-          <!--begin::Fullscreen Toggle-->
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="#"
-              data-lte-toggle="fullscreen"
-              aria-label="Toggle fullscreen">
-              <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i>
-              <i data-lte-icon="minimize" class="bi bi-fullscreen-exit d-none"></i>
-            </a>
-          </li>
-          <!--end::Fullscreen Toggle-->
-
-          <!--begin::Color Mode Toggle (#6010)-->
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link"
-              href="#"
-              id="bd-theme"
-              aria-label="Toggle color scheme"
-              data-bs-toggle="dropdown"
-              aria-expanded="false">
-              <i class="bi bi-sun-fill" data-lte-theme-icon="light"></i>
-              <i class="bi bi-moon-fill d-none" data-lte-theme-icon="dark"></i>
-              <i class="bi bi-circle-half d-none" data-lte-theme-icon="auto"></i>
-            </a>
-            <ul
-              class="dropdown-menu dropdown-menu-end"
-              aria-labelledby="bd-theme"
-              style="--bs-dropdown-min-width: 8rem">
-              <li>
-                <button
-                  type="button"
-                  class="dropdown-item d-flex align-items-center"
-                  data-bs-theme-value="light"
-                  aria-pressed="false">
-                  <i class="bi bi-sun-fill me-2"></i>
-                  Light
-                  <i class="bi bi-check-lg ms-auto d-none"></i>
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  class="dropdown-item d-flex align-items-center"
-                  data-bs-theme-value="dark"
-                  aria-pressed="false">
-                  <i class="bi bi-moon-fill me-2"></i>
-                  Dark
-                  <i class="bi bi-check-lg ms-auto d-none"></i>
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  class="dropdown-item d-flex align-items-center active"
-                  data-bs-theme-value="auto"
-                  aria-pressed="true">
-                  <i class="bi bi-circle-half me-2"></i>
-                  Auto
-                  <i class="bi bi-check-lg ms-auto d-none"></i>
-                </button>
-              </li>
-            </ul>
-          </li>
-          <!--end::Color Mode Toggle-->
 
           <!--begin::User Menu Dropdown-->
           <li class="nav-item dropdown user-menu">
@@ -437,7 +159,7 @@ if (!isset($_SESSION['user_id'])) {
     </nav>
     <!--end::Header-->
     <!--begin::Sidebar-->
-    <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+    <aside class="app-sidebar bg-white shadow-sm border-end" data-bs-theme="light">
       <!--begin::Sidebar Brand-->
       <div class="sidebar-brand">
         <!--begin::Brand Link-->
@@ -449,7 +171,7 @@ if (!isset($_SESSION['user_id'])) {
             class="brand-image opacity-75 shadow" />
           <!--end::Brand Image-->
           <!--begin::Brand Text-->
-          <span class="brand-text fw-light">VMS</span>
+          <span class="brand-text fw-bold text-primary">Vaxcare</span>
           <!--end::Brand Text-->
         </a>
         <!--end::Brand Link-->
@@ -481,14 +203,7 @@ if (!isset($_SESSION['user_id'])) {
             class="nav sidebar-menu flex-column"
             data-lte-toggle="treeview"
             data-accordion="false"
-            id="navigation">
-
-            <li class="nav-item">
-              <a href="index.php" class="nav-link">
-                <i class="nav-icon bi bi-speedometer"></i>
-                <p>Dashboard</p>
-              </a>
-            </li>
+            id="navigation">  
 
             <?php
             if ($_SESSION['role'] == "admin") {
