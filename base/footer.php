@@ -20,7 +20,7 @@
                 </div>
                 <div class="contact-item">
                   <i class="bi bi-telephone"></i>
-                  <span>+1 (555) 987-6543</span>
+                  <span>+92 300 2160865</span>
                 </div>
                 <div class="contact-item">
                   <i class="bi bi-envelope"></i>

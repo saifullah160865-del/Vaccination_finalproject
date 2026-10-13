@@ -56,7 +56,7 @@
 
               <div class="hero-actions" data-aos="fade-right" data-aos-delay="600">
                 <a href="appointment.html" class="btn btn-primary">Book Appointment</a>
-                <a href="dashboard/index.php">
+                <a href="dashboard/login.php">
                   <i class="bi bi-play-circle me-2"></i>
                   Sign In
                 </a>
@@ -134,7 +134,13 @@
 
               <div class="stats-grid">
                 <div class="stat-item">
-                  <div class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="15000"
+
+                <?php
+                  $select_query = "SELECT * FROM children";
+                  $result = mysqli_query($conn, $select_query);
+                  $count = mysqli_num_rows($result);
+                ?>
+                  <div class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="<?php echo $count; ?>"
                     data-purecounter-duration="1"></div>
                   <div class="stat-label">Patients Served</div>
                 </div>
@@ -143,10 +149,16 @@
                     data-purecounter-duration="1"></div>
                   <div class="stat-label">Years of Excellence</div>
                 </div>
+                <?php
+                  $select_query = "SELECT * FROM hospitals";
+                  $result = mysqli_query($conn, $select_query);
+                  $count_hospitals = mysqli_num_rows($result);
+                ?>
+
                 <div class="stat-item">
-                  <div class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="50"
+                  <div class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="<?php echo $count_hospitals; ?>"
                     data-purecounter-duration="1"></div>
-                  <div class="stat-label">Medical Specialists</div>
+                  <div class="stat-label">Hospitals Registered</div>
                 </div>
               </div>
 
@@ -316,7 +328,7 @@
             <div class="col-lg-4 text-lg-end">
               <a href="tel:+15551234567" class="emergency-btn">
                 <i class="bi bi-telephone-fill"></i>
-                Call Emergency: (555) 123-4567
+                Call Emergency: 0300 2160865
               </a>
             </div>
           </div>
@@ -522,17 +534,7 @@
                 </div>
               </div>
             </div>
-            <div class="rating-section">
-              <div class="stars">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </div>
-              <span class="rating-score">4.9</span>
-              <span class="review-count">(127 reviews)</span>
-            </div>
+            
             <div class="action-buttons">
               <a href="#!" class="btn-secondary">View Details</a>
               <a href="#!" class="btn-primary">Book Now</a>

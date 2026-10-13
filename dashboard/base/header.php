@@ -1,8 +1,5 @@
 <?php
-include("config/db.php");
-if (!isset($_SESSION['user_id'])) {
-  header("Location: login.php");
-}
+include("protectedRoute.php");
 ?>
 
 <!doctype html>
@@ -166,8 +163,6 @@ if (!isset($_SESSION['user_id'])) {
         <a href="index.php" class="brand-link">
           <!--begin::Brand Image-->
           <img
-            src="./assets/img/AdminLTELogo.png"
-            alt="AdminLTE Logo"
             class="brand-image opacity-75 shadow" />
           <!--end::Brand Image-->
           <!--begin::Brand Text-->
