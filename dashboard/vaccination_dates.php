@@ -76,7 +76,7 @@ if (isset($_POST['schedule_date'])) {
   <?php } ?>
 
   <div class="card-body">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped datatable">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -86,7 +86,7 @@ if (isset($_POST['schedule_date'])) {
           <th>Scheduled Date</th>
           <th>Status</th>
           <?php if ($_SESSION['role'] == 'admin') { ?>
-          <th style="width: 220px">Actions</th>
+          <th style="width: 160px">Actions</th>
           <?php } ?>
         </tr>
       </thead>
@@ -112,6 +112,7 @@ if (isset($_POST['schedule_date'])) {
         $execute = mysqli_query($conn, $query);
         $count = 1;
         while ($display = mysqli_fetch_array($execute)) {
+          $status_badge = ($display['status'] == 'Completed') ? 'bg-success' : 'bg-warning text-dark';
         ?>
           <tr class="align-middle">
             <td><?php echo $count++; ?></td>
@@ -119,15 +120,21 @@ if (isset($_POST['schedule_date'])) {
             <td><?php echo $display['parent_name']; ?></td>
             <td><span class="highlight"><?php echo $display['vaccine_name']; ?></span></td>
             <td><?php echo $display['vaccination_date']; ?></td>
-            <td><span class="badge badge-soft-blue"><?php echo $display['status']; ?></span></td>
+            <td><span class="badge <?php echo $status_badge; ?>"><?php echo $display['status']; ?></span></td>
             <?php if ($_SESSION['role'] == 'admin') { ?>
             <td class="text-nowrap">
               <?php if ($display['status'] == 'Pending') { ?>
-                <a href="vaccination_dates.php?toggle_id=<?php echo $display['id']; ?>&new_status=Completed" class="btn btn-outline-primary btn-sm">Mark Completed</a>
+                <a href="vaccination_dates.php?toggle_id=<?php echo $display['id']; ?>&new_status=Completed" class="btn btn-outline-success btn-sm me-1" title="Mark Completed">
+                  <i class="bi bi-check-circle me-1"></i>Completed
+                </a>
               <?php } else { ?>
-                <a href="vaccination_dates.php?toggle_id=<?php echo $display['id']; ?>&new_status=Pending" class="btn btn-outline-secondary btn-sm">Mark Pending</a>
+                <a href="vaccination_dates.php?toggle_id=<?php echo $display['id']; ?>&new_status=Pending" class="btn btn-outline-warning btn-sm me-1" title="Mark Pending">
+                  <i class="bi bi-clock-history me-1"></i>Pending
+                </a>
               <?php } ?>
-              <a href="vaccination_dates.php?delete_id=<?php echo $display['id']; ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+              <a href="javascript:void(0)" onclick="confirmDelete('vaccination_dates.php?delete_id=<?php echo $display['id']; ?>', 'Delete this vaccination schedule date?');" class="btn btn-outline-danger btn-sm" title="Delete Schedule">
+                <i class="bi bi-trash"></i>
+              </a>
             </td>
             <?php } ?>
           </tr>

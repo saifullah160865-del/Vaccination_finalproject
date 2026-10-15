@@ -17,7 +17,7 @@ if (isset($_GET['cancel_id'])) {
   </div>
 
   <div class="card-body">
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped datatable">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -44,27 +44,36 @@ if (isset($_GET['cancel_id'])) {
         $count = 1;
         if (mysqli_num_rows($execute) > 0) {
           while ($display = mysqli_fetch_array($execute)) {
+            if ($display['status'] == 'Approved') {
+              $b_badge = 'bg-primary';
+            } else if ($display['status'] == 'Completed') {
+              $b_badge = 'bg-success';
+            } else if ($display['status'] == 'Rejected') {
+              $b_badge = 'bg-danger';
+            } else {
+              $b_badge = 'bg-warning text-dark';
+            }
           ?>
             <tr class="align-middle">
               <td><?php echo $count++; ?></td>
               <td><strong><?php echo $display['child_name']; ?></strong></td>
               <td><?php echo $display['hospital_name']; ?></td>
-              <td><span class="badge badge-soft-blue"><?php echo $display['location']; ?></span></td>
+              <td><span class="badge bg-primary-subtle text-primary border border-primary-subtle"><i class="bi bi-geo-alt me-1"></i><?php echo $display['location']; ?></span></td>
               <td><span class="highlight"><?php echo $display['vaccine_name']; ?></span></td>
               <td><?php echo $display['booking_date']; ?></td>
-              <td><span class="badge badge-soft-blue"><?php echo $display['status']; ?></span></td>
+              <td><span class="badge <?php echo $b_badge; ?>"><?php echo $display['status']; ?></span></td>
               <td>
                 <?php if ($display['status'] == 'Pending') { ?>
-                  <a href="my_bookings.php?cancel_id=<?php echo $display['id']; ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('Cancel this booking request?')">Cancel</a>
+                  <a href="javascript:void(0)" onclick="confirmDelete('my_bookings.php?cancel_id=<?php echo $display['id']; ?>', 'Cancel this booking request?');" class="btn btn-outline-danger btn-sm" title="Cancel Booking">
+                    <i class="bi bi-x-circle me-1"></i>Cancel
+                  </a>
                 <?php } else { ?>
-                  <span class="text-muted"><?php echo $display['status']; ?></span>
+                  <span class="text-muted small"><?php echo $display['status']; ?></span>
                 <?php } ?>
               </td>
             </tr>
           <?php
           }
-        } else {
-          echo "<tr><td colspan='8' class='text-center text-muted'>No booking requests found.</td></tr>";
         }
         ?>
       </tbody>

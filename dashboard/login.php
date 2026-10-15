@@ -2,26 +2,30 @@
 
 include("config/db.php");
 
+$status = "";
+
 if(isset($_POST['login'])){
 
     extract($_POST);
 
-    $login_query = "SELECT * FROM users WHERE email='$email' AND password=sha1('$password')";
-
+    $login_query = "SELECT * FROM users WHERE email='$email'";
     $execute = mysqli_query($conn, $login_query);
 
     if(mysqli_num_rows($execute) > 0){
-
         $user = mysqli_fetch_array($execute);
 
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['name'] = $user['name'];
-        $_SESSION['role'] = $user['role'];
+        if ($user['password'] == sha1($password) || password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['name'] = $user['name'];
+            $_SESSION['role'] = $user['role'];
 
-            header("Location: index.php");
+            $status = "success";
+        } else {
+            $status = "error";
+        }
     }
     else{
-        echo "Invalid Email or Password";
+        $status = "error";
     }
 }
 
@@ -144,16 +148,24 @@ if(isset($_POST['login'])){
             </div>
             <!--begin::Row-->
             <div class="row">
-              
               <div class="col-12">
                 <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-primary" name="login">Login</button>
+                  <button type="submit" class="btn btn-primary" name="login">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
+                  </button>
                 </div>
               </div>
               <!-- /.col -->
             </div>
             <!--end::Row-->
           </form>
+
+          <div class="text-center mt-3 pt-3 border-top">
+            <p class="text-secondary mb-2 small">Not a member?</p>
+            <a href="register.php" class="btn btn-outline-primary w-100">
+              <i class="bi bi-person-plus me-1"></i> Register Now
+            </a>
+          </div>
         </div>
         <!-- /.login-card-body -->
       </div>
@@ -216,6 +228,42 @@ if(isset($_POST['login'])){
     <!--end::Color Mode Toggle-->
 
     <!--end::Script-->
+
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <?php if ($status == "success") { ?>
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: 'Login Successful!',
+        text: 'Welcome back, <?php echo isset($_SESSION['name']) ? addslashes($_SESSION['name']) : ''; ?>!',
+        timer: 1500,
+        showConfirmButton: false
+      }).then(function() {
+        window.location.href = 'index.php';
+      });
+    </script>
+    <?php } else if ($status == "error") { ?>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Failed',
+        text: 'Invalid Email or Password. Please try again!',
+        confirmButtonColor: '#175cdd'
+      });
+    </script>
+    <?php } else if (isset($_GET['logged_out'])) { ?>
+    <script>
+      Swal.fire({
+        icon: 'info',
+        title: 'Signed Out',
+        text: 'You have been safely signed out. See you soon!',
+        timer: 2000,
+        showConfirmButton: false
+      });
+    </script>
+    <?php } ?>
   </body>
   <!--end::Body-->
 </html>

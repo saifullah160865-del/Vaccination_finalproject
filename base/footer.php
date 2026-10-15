@@ -7,16 +7,15 @@
 
           <div class="col-lg-5">
             <div class="brand-section">
-              <a href="index.html" class="logo d-flex align-items-center mb-4">
-                <span class="sitename">Clinic</span>
+              <a href="index.php" class="logo d-flex align-items-center mb-4">
+                <span class="sitename">Vaxcare</span>
               </a>
-              <p class="brand-description">Crafting exceptional digital experiences through thoughtful design and
-                innovative solutions that elevate your brand presence.</p>
+              <p class="brand-description">Comprehensive child vaccination tracking and hospital booking platform, ensuring every child receives timely, vital immunizations in a secure and organized environment.</p>
 
-              <div class="contact-info mt-5">
+              <div class="contact-info mt-4">
                 <div class="contact-item">
                   <i class="bi bi-geo-alt"></i>
-                  <span>123 Creative Boulevard, Design District, NY 10012</span>
+                  <span>Medical Complex, Healthcare District</span>
                 </div>
                 <div class="contact-item">
                   <i class="bi bi-telephone"></i>
@@ -24,7 +23,7 @@
                 </div>
                 <div class="contact-item">
                   <i class="bi bi-envelope"></i>
-                  <span>hello@designstudio.com</span>
+                  <span>E-project@vaxcare.com</span>
                 </div>
               </div>
             </div>
@@ -36,13 +35,23 @@
 
                 <div class="col-6 col-lg-3">
                   <div class="nav-column">
-                    <h6>Studio</h6>
+                    <h6>Quick Links</h6>
                     <nav class="footer-nav">
-                      <a href="#!">Our Story</a>
-                      <a href="#!">Design Process</a>
-                      <a href="#!">Portfolio</a>
-                      <a href="#!">Case Studies</a>
-                      <a href="#!">Awards</a>
+                      <a href="index.php">Home</a>
+                      <a href="#home-about">About Us</a>
+                      <a href="#featured-services">Services</a>
+                      <a href="#find-a-doctor">Doctors</a>
+                    </nav>
+                  </div>
+                </div>
+
+                <div class="col-6 col-lg-3">
+                  <div class="nav-column">
+                    <h6>Portals</h6>
+                    <nav class="footer-nav">
+                      <a href="dashboard/login.php">Sign In</a>
+                      <a href="dashboard/register.php">Parent Register</a>
+                      <a href="dashboard/index.php">Dashboard</a>
                     </nav>
                   </div>
                 </div>
@@ -51,37 +60,19 @@
                   <div class="nav-column">
                     <h6>Services</h6>
                     <nav class="footer-nav">
-                      <a href="#!">Brand Identity</a>
-                      <a href="#!">Web Design</a>
-                      <a href="#!">Mobile Apps</a>
-                      <a href="#!">Digital Strategy</a>
-                      <a href="#!">Consultation</a>
+                      <a href="#featured-services">Child Vaccines</a>
+                      <a href="#featured-services">Hospital Booking</a>
+                      <a href="#featured-services">Vaccination Reports</a>
                     </nav>
                   </div>
                 </div>
 
                 <div class="col-6 col-lg-3">
                   <div class="nav-column">
-                    <h6>Resources</h6>
+                    <h6>Contact</h6>
                     <nav class="footer-nav">
-                      <a href="#!">Design Blog</a>
-                      <a href="#!">Style Guide</a>
-                      <a href="#!">Free Assets</a>
-                      <a href="#!">Tutorials</a>
-                      <a href="#!">Inspiration</a>
-                    </nav>
-                  </div>
-                </div>
-
-                <div class="col-6 col-lg-3">
-                  <div class="nav-column">
-                    <h6>Connect</h6>
-                    <nav class="footer-nav">
-                      <a href="#!">Start Project</a>
-                      <a href="#!">Schedule Call</a>
-                      <a href="#!">Join Newsletter</a>
-                      <a href="#!">Follow Updates</a>
-                      <a href="#!">Partnership</a>
+                      <a href="#hero">Hotline</a>
+                      <a href="mailto:E-project@vaxcare.com">Support Email</a>
                     </nav>
                   </div>
                 </div>

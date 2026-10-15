@@ -1,4 +1,4 @@
-<?php
+  <?php
 include("base/header.php");
 
 $role = $_SESSION['role'];
@@ -111,7 +111,7 @@ $uid = $_SESSION['user_id'];
                               <td>".$r['child_name']."</td>
                               <td>".$r['hospital_name']."</td>
                               <td>".$r['booking_date']."</td>
-                              <td><a href='parent_requests.php' class='btn btn-sm btn-primary'>View</a></td>
+                              <td><a href='parent_requests.php' class='btn btn-sm btn-primary'><i class='bi bi-eye me-1'></i>View</a></td>
                             </tr>";
                     }
                   } else {
@@ -153,7 +153,7 @@ $uid = $_SESSION['user_id'];
                               <td><strong>".$u['child_name']."</strong></td>
                               <td>".$u['vaccine_name']."</td>
                               <td>".$u['vaccination_date']."</td>
-                              <td><span class='badge badge-soft-blue'>".$u['status']."</span></td>
+                              <td><span class='badge bg-warning text-dark'>".$u['status']."</span></td>
                             </tr>";
                     }
                   } else {
@@ -192,7 +192,7 @@ $uid = $_SESSION['user_id'];
               <h3 class="stat-number"><?php echo $p_upcoming; ?></h3>
               <p>Upcoming Vaccinations</p>
             </div>
-            <a href="vaccination_dates.php" class="small-box-footer">
+            <a href="my_vaccination_dates.php" class="small-box-footer">
               <span>View Schedules</span> <i class="bi bi-arrow-right"></i>
             </a>
           </div>

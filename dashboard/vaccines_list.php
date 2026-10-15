@@ -102,7 +102,7 @@ if (isset($_GET['edit_id'])) {
   <?php } ?>
 
   <div class="card-body">
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped datatable">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -110,7 +110,7 @@ if (isset($_GET['edit_id'])) {
           <th>Description</th>
           <th>Status</th>
           <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'hospital') { ?>
-          <th style="width: 220px">Actions</th>
+          <th style="width: 160px">Actions</th>
           <?php } ?>
         </tr>
       </thead>
@@ -120,7 +120,7 @@ if (isset($_GET['edit_id'])) {
         $execute = mysqli_query($conn, $query);
         $count = 1;
         while ($display = mysqli_fetch_array($execute)) {
-          $status_badge = ($display['status'] == 'Available') ? 'badge-soft-blue' : 'badge-soft-secondary';
+          $status_badge = ($display['status'] == 'Available') ? 'bg-success' : 'bg-secondary';
         ?>
           <tr class="align-middle">
             <td><?php echo $count++; ?></td>
@@ -134,13 +134,21 @@ if (isset($_GET['edit_id'])) {
             <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'hospital') { ?>
             <td class="text-nowrap">
               <?php if ($display['status'] == 'Available') { ?>
-                <a href="vaccines_list.php?toggle_id=<?php echo $display['id']; ?>&new_status=Unavailable" class="btn btn-outline-secondary btn-sm">Mark Unavailable</a>
+                <a href="vaccines_list.php?toggle_id=<?php echo $display['id']; ?>&new_status=Unavailable" class="btn btn-outline-warning btn-sm me-1" title="Mark Unavailable">
+                  <i class="bi bi-x-circle me-1"></i>Disable
+                </a>
               <?php } else { ?>
-                <a href="vaccines_list.php?toggle_id=<?php echo $display['id']; ?>&new_status=Available" class="btn btn-outline-primary btn-sm">Mark Available</a>
+                <a href="vaccines_list.php?toggle_id=<?php echo $display['id']; ?>&new_status=Available" class="btn btn-outline-success btn-sm me-1" title="Mark Available">
+                  <i class="bi bi-check-circle me-1"></i>Enable
+                </a>
               <?php } ?>
               <?php if ($_SESSION['role'] == 'admin') { ?>
-                <a href="vaccines_list.php?edit_id=<?php echo $display['id']; ?>" class="btn btn-outline-primary btn-sm">Edit</a>
-                <a href="vaccines_list.php?delete_id=<?php echo $display['id']; ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                <a href="vaccines_list.php?edit_id=<?php echo $display['id']; ?>" class="btn btn-outline-primary btn-sm me-1" title="Edit Vaccine">
+                  <i class="bi bi-pencil-square"></i>
+                </a>
+                <a href="javascript:void(0)" onclick="confirmDelete('vaccines_list.php?delete_id=<?php echo $display['id']; ?>', 'Delete this vaccine from system?');" class="btn btn-outline-danger btn-sm" title="Delete Vaccine">
+                  <i class="bi bi-trash"></i>
+                </a>
               <?php } ?>
             </td>
             <?php } ?>

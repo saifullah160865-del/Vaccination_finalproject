@@ -58,6 +58,16 @@ if ($role == 'hospital') {
 
       <form method="POST">
         <div class="card-body">
+          <div class="text-center pb-3 mb-4 border-bottom">
+            <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center shadow-sm mb-2 fw-bold" style="width: 70px; height: 70px; font-size: 28px;">
+              <?php echo strtoupper(substr(isset($user_data['name']) ? $user_data['name'] : 'U', 0, 1)); ?>
+            </div>
+            <h5 class="mb-1 fw-bold"><?php echo isset($user_data['name']) ? $user_data['name'] : 'User'; ?></h5>
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle text-uppercase px-3 py-1">
+              <?php echo ucfirst($user_data['role']); ?>
+            </span>
+          </div>
+
           <div class="mb-3">
             <label>Role</label>
             <input type="text" class="form-control" value="<?php echo ucfirst($user_data['role']); ?>" readonly>
@@ -107,3 +117,22 @@ if ($role == 'hospital') {
 <?php
 include("base/footer.php");
 ?>
+<?php if ($msg != "") { ?>
+<script>
+Swal.fire({
+  icon: 'success',
+  title: 'Profile Saved',
+  text: '<?php echo addslashes($msg); ?>',
+  confirmButtonColor: '#175cdd'
+});
+</script>
+<?php } else if ($err != "") { ?>
+<script>
+Swal.fire({
+  icon: 'error',
+  title: 'Error',
+  text: '<?php echo addslashes($err); ?>',
+  confirmButtonColor: '#175cdd'
+});
+</script>
+<?php } ?>

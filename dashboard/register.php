@@ -2,20 +2,29 @@
 
   include("config/db.php");
 
+  $status = "";
+
   if(isset($_POST['register'])){
     extract($_POST);
 
-    $insert_query = "INSERT INTO users(name, email, password, role) VALUES('$fullName', '$email', sha1('$password'), '$role')";
-    $execute = mysqli_query($conn, $insert_query);
-    if ($execute) {
-      $user_id = mysqli_insert_id($conn);
-      if ($role == 'hospital') {
-        $h_loc = isset($location) ? $location : '';
-        $h_addr = isset($address) ? $address : '';
-        $h_ph = isset($phone) ? $phone : '';
-        mysqli_query($conn, "INSERT INTO hospitals (user_id, hospital_name, address, location, phone) VALUES ('$user_id', '$fullName', '$h_addr', '$h_loc', '$h_ph')");
+    $check_email = mysqli_query($conn, "SELECT id FROM users WHERE email='$email'");
+    if(mysqli_num_rows($check_email) > 0){
+      $status = "email_exists";
+    } else {
+      $insert_query = "INSERT INTO users(name, email, password, role) VALUES('$fullName', '$email', sha1('$password'), '$role')";
+      $execute = mysqli_query($conn, $insert_query);
+      if ($execute) {
+        $user_id = mysqli_insert_id($conn);
+        if ($role == 'hospital') {
+          $h_loc = isset($location) ? $location : '';
+          $h_addr = isset($address) ? $address : '';
+          $h_ph = isset($phone) ? $phone : '';
+          mysqli_query($conn, "INSERT INTO hospitals (user_id, hospital_name, address, location, phone) VALUES ('$user_id', '$fullName', '$h_addr', '$h_loc', '$h_ph')");
+        }
+        $status = "success";
+      } else {
+        $status = "error";
       }
-      echo "<script>alert('Registration Successful! Please Login.'); location.assign('login.php');</script>";
     }
   }
 ?>
@@ -94,13 +103,19 @@
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="css/adminlte.css" />
     <!--end::Required Plugin(AdminLTE)-->
+
+    <!--begin::Medical Theme-->
+    <link rel="stylesheet" href="css/medical-theme.css" />
+    <!--end::Medical Theme-->
   </head>
   <!--end::Head-->
   <!--begin::Body-->
-  <body class="register-page bg-body-secondary">
+  <body class="register-page">
     <main class="register-box">
-      <h1 class="login-logo">
-        <a href="index.php"><b>Admin</b>LTE</a>
+      <h1 class="login-logo mb-4">
+        <a href="index.php" class="text-primary fw-bold text-decoration-none fs-2">
+          <i class="bi bi-heart-pulse-fill me-2"></i>Vaxcare
+        </a>
       </h1>
       <!-- /.login-logo -->
       <div class="card">
@@ -204,7 +219,7 @@
       crossorigin="anonymous"
     ></script>
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-    <script src="../js/adminlte.js"></script>
+    <script src="js/adminlte.js"></script>
     <!--end::Required Plugin(AdminLTE)-->
     <!--begin::OverlayScrollbars Configure-->
     <script>
@@ -244,6 +259,41 @@
     <!--end::Color Mode Toggle-->
 
     <!--end::Script-->
+
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <?php if ($status == "success") { ?>
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: 'Registration Successful!',
+        text: 'Your account has been created successfully. Redirecting to login...',
+        timer: 2000,
+        showConfirmButton: false
+      }).then(function() {
+        window.location.href = 'login.php';
+      });
+    </script>
+    <?php } else if ($status == "email_exists") { ?>
+    <script>
+      Swal.fire({
+        icon: 'warning',
+        title: 'Email Already Registered',
+        text: 'This email is already associated with an account. Please sign in or use another email.',
+        confirmButtonColor: '#175cdd'
+      });
+    </script>
+    <?php } else if ($status == "error") { ?>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Registration Failed',
+        text: 'Something went wrong while creating your account. Please try again.',
+        confirmButtonColor: '#175cdd'
+      });
+    </script>
+    <?php } ?>
   </body>
   <!--end::Body-->
 </html>

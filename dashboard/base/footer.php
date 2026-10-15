@@ -34,7 +34,7 @@
       crossorigin="anonymous"
     ></script>
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-    <script src="./js/adminlte.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@4.0.0-beta3/dist/js/adminlte.min.js"></script>
     <!--end::Required Plugin(AdminLTE)-->
     <!--begin::OverlayScrollbars Configure-->
     <script>
@@ -362,8 +362,42 @@
       sparkline('#sparkline-1', [1000, 1200, 920, 927, 931, 1027, 819, 930, 1021]);
       sparkline('#sparkline-2', [515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921]);
       sparkline('#sparkline-3', [15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21]);
+    <!-- jQuery, DataTables & SweetAlert2 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      $(document).ready(function() {
+        if ($('.datatable').length > 0) {
+          $('.datatable').DataTable({
+            language: {
+              search: "_INPUT_",
+              searchPlaceholder: "Search records..."
+            },
+            pageLength: 10,
+            responsive: true
+          });
+        }
+      });
+
+      function confirmDelete(url, message) {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: message || 'This action cannot be undone!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#6c757d',
+          confirmButtonText: 'Yes, proceed!'
+        }).then(function(result) {
+          if (result.isConfirmed) {
+            window.location.href = url;
+          }
+        });
+        return false;
+      }
     </script>
-    <!--end::Script-->
   </body>
-  <!--end::Body-->
 </html>

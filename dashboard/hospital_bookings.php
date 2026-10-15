@@ -21,7 +21,7 @@ if (isset($_POST['save_status'])) {
     mysqli_query($conn, "UPDATE bookings SET status='Completed' WHERE id='$booking_id'");
     mysqli_query($conn, "UPDATE vaccination_dates SET status='Completed' WHERE id='$vaccination_id'");
   }
-  echo "<script>location.assign('hospital_bookings.php');</script>";
+  $msg = "status_saved";
 }
 
 $update_data = null;
@@ -91,7 +91,7 @@ if (isset($_GET['update_id'])) {
   <?php } ?>
 
   <div class="card-body">
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped datatable">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -102,7 +102,7 @@ if (isset($_GET['update_id'])) {
           <th>Appointment Status</th>
           <th>Vaccine Status</th>
           <th>Remarks</th>
-          <th style="width: 160px">Action</th>
+          <th style="width: 120px">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -122,6 +122,8 @@ if (isset($_GET['update_id'])) {
         if (mysqli_num_rows($execute) > 0) {
           while ($display = mysqli_fetch_array($execute)) {
             $v_status = $display['rep_status'] ? $display['rep_status'] : "Pending";
+            $b_badge = ($display['status'] == 'Approved') ? 'bg-primary' : (($display['status'] == 'Completed') ? 'bg-success' : 'bg-warning text-dark');
+            $v_badge = ($v_status == 'Vaccinated') ? 'bg-success' : (($v_status == 'Not Vaccinated') ? 'bg-danger' : 'bg-secondary');
           ?>
             <tr class="align-middle">
               <td><?php echo $count++; ?></td>
@@ -129,17 +131,17 @@ if (isset($_GET['update_id'])) {
               <td><?php echo $display['parent_name']; ?></td>
               <td><span class="highlight"><?php echo $display['vaccine_name']; ?></span></td>
               <td><?php echo $display['booking_date']; ?></td>
-              <td><span class="badge badge-soft-blue"><?php echo $display['status']; ?></span></td>
-              <td><span class="badge badge-soft-blue"><?php echo $v_status; ?></span></td>
+              <td><span class="badge <?php echo $b_badge; ?>"><?php echo $display['status']; ?></span></td>
+              <td><span class="badge <?php echo $v_badge; ?>"><?php echo $v_status; ?></span></td>
               <td><?php echo $display['remarks'] ? $display['remarks'] : '-'; ?></td>
               <td>
-                <a href="hospital_bookings.php?update_id=<?php echo $display['id']; ?>" class="btn btn-primary btn-sm">Update Status</a>
+                <a href="hospital_bookings.php?update_id=<?php echo $display['id']; ?>" class="btn btn-primary btn-sm">
+                  <i class="bi bi-pencil-square me-1"></i>Update
+                </a>
               </td>
             </tr>
           <?php
           }
-        } else {
-          echo "<tr><td colspan='9' class='text-center text-muted'>No appointments currently assigned to your hospital.</td></tr>";
         }
         ?>
       </tbody>
@@ -150,3 +152,16 @@ if (isset($_GET['update_id'])) {
 <?php
 include("base/footer.php");
 ?>
+<?php if (isset($msg) && $msg == "status_saved") { ?>
+<script>
+Swal.fire({
+  icon: 'success',
+  title: 'Status Updated!',
+  text: 'Vaccination record has been saved successfully.',
+  timer: 1500,
+  showConfirmButton: false
+}).then(function() {
+  window.location.href = 'hospital_bookings.php';
+});
+</script>
+<?php } ?>

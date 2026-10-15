@@ -24,7 +24,7 @@ if (isset($_GET['delete_id'])) {
   </div>
 
   <div class="card-body">
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped datatable">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -34,7 +34,7 @@ if (isset($_GET['delete_id'])) {
           <th>Location</th>
           <th>Address</th>
           <?php if ($_SESSION['role'] == 'admin') { ?>
-          <th style="width: 150px">Actions</th>
+          <th style="width: 100px">Actions</th>
           <?php } ?>
         </tr>
       </thead>
@@ -50,12 +50,16 @@ if (isset($_GET['delete_id'])) {
             <td><strong><?php echo $display['hospital_name']; ?></strong></td>
             <td><?php echo $display['email']; ?></td>
             <td><?php echo $display['phone']; ?></td>
-            <td><span class="badge badge-soft-blue"><?php echo $display['location']; ?></span></td>
+            <td><span class="badge bg-primary-subtle text-primary border border-primary-subtle"><i class="bi bi-geo-alt me-1"></i><?php echo $display['location']; ?></span></td>
             <td><?php echo $display['address']; ?></td>
             <?php if ($_SESSION['role'] == 'admin') { ?>
             <td class="text-nowrap">
-              <a href="manage_hospitals.php?edit_id=<?php echo $display['id']; ?>" class="btn btn-outline-primary btn-sm">Edit</a>
-              <a href="hospitals_list.php?delete_id=<?php echo $display['id']; ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('Are you sure you want to delete this hospital?')">Delete</a>
+              <a href="manage_hospitals.php?edit_id=<?php echo $display['id']; ?>" class="btn btn-outline-primary btn-sm me-1" title="Edit Hospital">
+                <i class="bi bi-pencil-square"></i>
+              </a>
+              <a href="javascript:void(0)" onclick="confirmDelete('hospitals_list.php?delete_id=<?php echo $display['id']; ?>', 'Delete this hospital and its account?');" class="btn btn-outline-danger btn-sm" title="Delete Hospital">
+                <i class="bi bi-trash"></i>
+              </a>
             </td>
             <?php } ?>
           </tr>

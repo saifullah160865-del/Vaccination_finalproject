@@ -39,7 +39,7 @@ if (isset($_GET['filter_date'])) {
       </div>
     </form>
 
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped datatable">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -66,6 +66,7 @@ if (isset($_GET['filter_date'])) {
         $count = 1;
         if (mysqli_num_rows($execute) > 0) {
           while ($display = mysqli_fetch_array($execute)) {
+            $status_badge = ($display['status'] == 'Vaccinated') ? 'bg-success' : 'bg-danger';
           ?>
             <tr class="align-middle">
               <td><?php echo $count++; ?></td>
@@ -74,13 +75,11 @@ if (isset($_GET['filter_date'])) {
               <td><span class="highlight"><?php echo $display['vaccine_name']; ?></span></td>
               <td><?php echo $display['hospital_name']; ?></td>
               <td><?php echo $display['vaccination_date']; ?></td>
-              <td><span class="badge badge-soft-blue"><?php echo $display['status']; ?></span></td>
+              <td><span class="badge <?php echo $status_badge; ?>"><i class="bi bi-shield-check me-1"></i><?php echo $display['status']; ?></span></td>
               <td><?php echo $display['remarks']; ?></td>
             </tr>
           <?php
           }
-        } else {
-          echo "<tr><td colspan='8' class='text-center text-muted'>No vaccination reports found for the selected date range.</td></tr>";
         }
         ?>
       </tbody>

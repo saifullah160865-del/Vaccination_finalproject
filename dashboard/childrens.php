@@ -48,7 +48,7 @@ if (isset($_POST['add_child'])) {
   } else {
     $sql = "INSERT INTO children (parent_id, child_name, date_of_birth, gender) VALUES ('$p_id', '$child_name', '$dob', '$gender')";
     mysqli_query($conn, $sql);
-    echo "<script>location.assign('childrens.php');</script>";
+    $msg = "child_added";
   }
 }
 
@@ -57,7 +57,7 @@ if (isset($_POST['update_child'])) {
   if ($child_name != "" && $dob != "" && $gender != "") {
     $update_sql = "UPDATE children SET child_name='$child_name', date_of_birth='$dob', gender='$gender' WHERE id='$child_id'";
     mysqli_query($conn, $update_sql);
-    echo "<script>location.assign('childrens.php');</script>";
+    $msg = "child_updated";
   }
 }
 
@@ -146,7 +146,7 @@ if (isset($_GET['edit_id'])) {
   <?php } ?>
 
   <div class="card-body">
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped datatable">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -154,7 +154,7 @@ if (isset($_GET['edit_id'])) {
           <th>Child Name</th>
           <th>DOB</th>
           <th>Gender</th>
-          <th style="width: 150px">Actions</th>
+          <th style="width: 100px">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -168,16 +168,21 @@ if (isset($_GET['edit_id'])) {
         $execute = mysqli_query($conn, $query);
         $count = 1;
         while ($display = mysqli_fetch_array($execute)) {
+          $gender_badge = ($display['gender'] == 'Male') ? 'bg-primary' : 'bg-info text-dark';
         ?>
           <tr class="align-middle">
             <td><?php echo $count++; ?></td>
             <td><?php echo $display['parent_name']; ?></td>
             <td><strong><?php echo $display['child_name']; ?></strong></td>
             <td><?php echo $display['date_of_birth']; ?></td>
-            <td><span class="badge badge-soft-blue"><?php echo $display['gender']; ?></span></td>
+            <td><span class="badge <?php echo $gender_badge; ?>"><?php echo $display['gender']; ?></span></td>
             <td class="text-nowrap">
-              <a href="childrens.php?edit_id=<?php echo $display['id']; ?>" class="btn btn-outline-primary btn-sm">Edit</a>
-              <a href="childrens.php?delete_id=<?php echo $display['id']; ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+              <a href="childrens.php?edit_id=<?php echo $display['id']; ?>" class="btn btn-outline-primary btn-sm me-1" title="Edit Child">
+                <i class="bi bi-pencil-square"></i>
+              </a>
+              <a href="javascript:void(0)" onclick="confirmDelete('childrens.php?delete_id=<?php echo $display['id']; ?>', 'Are you sure you want to delete this child profile?');" class="btn btn-outline-danger btn-sm" title="Delete Child">
+                <i class="bi bi-trash"></i>
+              </a>
             </td>
           </tr>
         <?php
@@ -191,3 +196,28 @@ if (isset($_GET['edit_id'])) {
 <?php
 include("base/footer.php");
 ?>
+<?php if (isset($msg) && $msg == "child_added") { ?>
+<script>
+Swal.fire({
+  icon: 'success',
+  title: 'Child Added!',
+  text: 'Child profile has been registered successfully.',
+  timer: 1500,
+  showConfirmButton: false
+}).then(function() {
+  window.location.href = 'childrens.php';
+});
+</script>
+<?php } else if (isset($msg) && $msg == "child_updated") { ?>
+<script>
+Swal.fire({
+  icon: 'success',
+  title: 'Profile Updated!',
+  text: 'Child profile details have been saved.',
+  timer: 1500,
+  showConfirmButton: false
+}).then(function() {
+  window.location.href = 'childrens.php';
+});
+</script>
+<?php } ?>

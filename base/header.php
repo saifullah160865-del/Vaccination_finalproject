@@ -7,8 +7,8 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Clinic Bootstrap Template</title>
-  <meta name="description" content="">
+  <title>Vaxcare - Child Vaccination & Hospital Management System</title>
+  <meta name="description" content="Online Child Vaccination Tracking, Hospital Booking, and Immunization Management System">
   <meta name="keywords" content="">
 
   <!-- Favicons -->
@@ -57,10 +57,10 @@
       </div>
     </div><!-- End Top Bar -->
 
-    <div class="branding d-flex align-items-cente">
+    <div class="branding d-flex align-items-center">
 
       <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
+        <a href="index.php" class="logo d-flex align-items-center">
           <!-- Uncomment the line below if you also wish to use an image logo -->
           <!-- <img src="assets/img/logo.webp" alt=""> -->
           <h1 class="sitename">Vaxcare</h1>
@@ -68,11 +68,13 @@
 
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="services.html">Services</a></li>
-            
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.php" class="active">Home</a></li>
+            <li><a href="#home-about">About</a></li>
+            <li><a href="#featured-departments">Vaccines</a></li>
+            <li><a href="#featured-services">Services</a></li>
+            <li><a href="#find-a-doctor">Hospitals</a></li>
+            <li><a href="dashboard/login.php">Sign In</a></li>
+            <li><a href="dashboard/register.php">Register</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>

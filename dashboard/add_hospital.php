@@ -18,7 +18,7 @@ if (isset($_POST['add_hospital'])) {
         $user_id = mysqli_insert_id($conn);
         $hosp_query = "INSERT INTO hospitals (user_id, hospital_name, address, location, phone) VALUES ('$user_id', '$hospital_name', '$address', '$location', '$phone')";
         mysqli_query($conn, $hosp_query);
-        echo "<script>location.assign('hospitals_list.php');</script>";
+        $message = "Hospital account added successfully!";
       } else {
         $error = "Error adding hospital account";
       }
@@ -83,3 +83,16 @@ if (isset($_POST['add_hospital'])) {
 <?php
 include("base/footer.php");
 ?>
+<?php if ($message != "") { ?>
+<script>
+Swal.fire({
+  icon: 'success',
+  title: 'Hospital Added!',
+  text: 'Hospital account has been created successfully.',
+  timer: 1500,
+  showConfirmButton: false
+}).then(function() {
+  window.location.href = 'hospitals_list.php';
+});
+</script>
+<?php } ?>

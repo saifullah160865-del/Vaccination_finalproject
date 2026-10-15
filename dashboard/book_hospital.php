@@ -25,7 +25,7 @@ if (isset($_POST['book_appointment'])) {
       $book_sql = "INSERT INTO bookings (parent_id, child_id, hospital_id, vaccination_id, booking_date, status) 
                    VALUES ('$parent_id', '$child_id', '$hospital_id', '$v_id', '$booking_date', 'Pending')";
       if (mysqli_query($conn, $book_sql)) {
-        echo "<script>location.assign('my_bookings.php');</script>";
+        $msg = "success";
       } else {
         $err = "Could not complete booking request.";
       }
@@ -115,3 +115,16 @@ if (isset($_POST['book_appointment'])) {
 <?php
 include("base/footer.php");
 ?>
+<?php if ($msg == "success") { ?>
+<script>
+Swal.fire({
+  icon: 'success',
+  title: 'Booking Request Submitted!',
+  text: 'Your appointment request has been submitted for admin approval.',
+  timer: 2000,
+  showConfirmButton: false
+}).then(function() {
+  window.location.href = 'my_bookings.php';
+});
+</script>
+<?php } ?>

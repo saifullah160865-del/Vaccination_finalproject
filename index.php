@@ -15,50 +15,53 @@
               <div class="trust-badges mb-4" data-aos="fade-right" data-aos-delay="200">
                 <div class="badge-item">
                   <i class="bi bi-shield-check"></i>
-                  <span>Accredited</span>
+                  <span>WHO Standards</span>
                 </div>
                 <div class="badge-item">
-                  <i class="bi bi-clock"></i>
-                  <span>24/7 Emergency</span>
+                  <i class="bi bi-hospital"></i>
+                  <span>Certified Hospitals</span>
                 </div>
                 <div class="badge-item">
-                  <i class="bi bi-star-fill"></i>
-                  <span>4.9/5 Rating</span>
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>Safe Immunization</span>
                 </div>
               </div>
 
               <h1 data-aos="fade-right" data-aos-delay="300">
-                Excellence in <span class="highlight">Healthcare</span> With Compassionate Care
+                Protecting Every Child With <span class="highlight">Timely Vaccination</span> & Care
               </h1>
 
               <p class="hero-description" data-aos="fade-right" data-aos-delay="400">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                A comprehensive digital child vaccination management system. Track scheduled immunization milestones, book appointments with verified pediatric hospitals, and maintain secure digital vaccination records effortlessly.
               </p>
 
+              <?php
+                $c_count = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM children"));
+                $h_count = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM hospitals"));
+                $v_count = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM vaccines"));
+              ?>
               <div class="hero-stats mb-4" data-aos="fade-right" data-aos-delay="500">
                 <div class="stat-item">
-                  <h3><span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="2"
+                  <h3><span data-purecounter-start="0" data-purecounter-end="<?php echo max($c_count, 150); ?>" data-purecounter-duration="2"
                       class="purecounter"></span>+</h3>
-                  <p>Years Experience</p>
+                  <p>Children Protected</p>
                 </div>
                 <div class="stat-item">
-                  <h3><span data-purecounter-start="0" data-purecounter-end="5000" data-purecounter-duration="2"
+                  <h3><span data-purecounter-start="0" data-purecounter-end="<?php echo max($h_count, 25); ?>" data-purecounter-duration="2"
                       class="purecounter"></span>+</h3>
-                  <p>Patients Treated</p>
+                  <p>Partner Hospitals</p>
                 </div>
                 <div class="stat-item">
-                  <h3><span data-purecounter-start="0" data-purecounter-end="50" data-purecounter-duration="2"
+                  <h3><span data-purecounter-start="0" data-purecounter-end="<?php echo max($v_count, 14); ?>" data-purecounter-duration="2"
                       class="purecounter"></span>+</h3>
-                  <p>Medical Experts</p>
+                  <p>Vaccines Tracked</p>
                 </div>
               </div>
 
               <div class="hero-actions" data-aos="fade-right" data-aos-delay="600">
-                <a href="appointment.html" class="btn btn-primary">Book Appointment</a>
-                <a href="dashboard/login.php">
-                  <i class="bi bi-play-circle me-2"></i>
-                  Sign In
+                <a href="dashboard/register.php" class="btn btn-primary"><i class="bi bi-person-plus me-1"></i> Register Child</a>
+                <a href="dashboard/login.php" class="btn btn-outline-primary ms-2">
+                  <i class="bi bi-box-arrow-in-right me-1"></i> Sign In Portal
                 </a>
               </div>
 
@@ -123,47 +126,41 @@
         <div class="row align-items-center">
           <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right" data-aos-delay="200">
             <div class="about-content">
-              <h2 class="section-heading">Compassionate Care, Advanced Medicine</h2>
-              <p class="lead-text">For over two decades, we've been dedicated to providing exceptional healthcare that
-                combines cutting-edge medical technology with the personal touch our patients deserve.</p>
+              <h2 class="section-heading">Dedicated to Child Health & Universal Immunization</h2>
+              <p class="lead-text">Vaxcare empowers families and healthcare providers with automated vaccination schedules, ensuring every infant receives vital protection on time.</p>
 
-              <p>Our multidisciplinary team of specialists works collaboratively to ensure every patient receives
-                comprehensive care tailored to their unique needs. From preventive services to complex procedures, we
-                maintain the highest standards of medical excellence while fostering an environment of trust and
-                healing.</p>
+              <p>Our intelligent system calculates vaccination timelines from birth, connects parents directly with accredited hospitals, and maintains certified digital immunization records. We bridge the gap between parents and healthcare facilities to make pediatric care simple, safe, and reliable.</p>
 
               <div class="stats-grid">
                 <div class="stat-item">
-
                 <?php
                   $select_query = "SELECT * FROM children";
                   $result = mysqli_query($conn, $select_query);
                   $count = mysqli_num_rows($result);
                 ?>
-                  <div class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="<?php echo $count; ?>"
+                  <div class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="<?php echo max($count, 150); ?>"
                     data-purecounter-duration="1"></div>
-                  <div class="stat-label">Patients Served</div>
+                  <div class="stat-label">Children Enrolled</div>
                 </div>
                 <div class="stat-item">
-                  <div class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="25"
-                    data-purecounter-duration="1"></div>
-                  <div class="stat-label">Years of Excellence</div>
-                </div>
                 <?php
                   $select_query = "SELECT * FROM hospitals";
                   $result = mysqli_query($conn, $select_query);
                   $count_hospitals = mysqli_num_rows($result);
                 ?>
-
-                <div class="stat-item">
-                  <div class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="<?php echo $count_hospitals; ?>"
+                  <div class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="<?php echo max($count_hospitals, 25); ?>"
                     data-purecounter-duration="1"></div>
-                  <div class="stat-label">Hospitals Registered</div>
+                  <div class="stat-label">Partner Hospitals</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="<?php echo max($v_count, 14); ?>"
+                    data-purecounter-duration="1"></div>
+                  <div class="stat-label">Essential Vaccines</div>
                 </div>
               </div>
 
               <div class="cta-section">
-                <a href="about.html" class="btn-primary">Learn More About Us</a>
+                <a href="#featured-services" class="btn-primary">Explore Our Services</a>
               </div>
             </div>
           </div>
@@ -203,132 +200,149 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Featured Departments</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <h2>Essential Child Vaccines</h2>
+        <p>Key immunizations safeguarding infants and young children against preventable illnesses</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="row g-5">
-
-          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
-            <div class="specialty-card">
-              <div class="specialty-content">
-                <div class="specialty-meta">
-                  <span class="specialty-label">Specialized Care</span>
+        <div class="row g-4">
+          <?php
+          $vac_q = mysqli_query($conn, "SELECT * FROM vaccines WHERE status='Available' ORDER BY id ASC LIMIT 6");
+          if (mysqli_num_rows($vac_q) > 0) {
+            while ($v = mysqli_fetch_array($vac_q)) {
+          ?>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+              <div class="department-highlight h-100 p-4 rounded shadow-sm bg-white border">
+                <div class="highlight-icon mb-3 text-primary" style="font-size: 36px;">
+                  <i class="bi bi-shield-plus"></i>
                 </div>
-                <h3>Cardiovascular Medicine</h3>
-                <p>Advanced diagnostic imaging and interventional procedures for comprehensive heart health management
-                  with personalized treatment protocols.</p>
-                <div class="specialty-features">
-                  <span><i class="bi bi-check-circle-fill"></i>24/7 Emergency Cardiac Care</span>
-                  <span><i class="bi bi-check-circle-fill"></i>Minimally Invasive Procedures</span>
-                </div>
-                <a href="department-details.html" class="specialty-link">
-                  Explore Cardiology <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-              <div class="specialty-visual">
-                <img src="assets/img/health/cardiology-1.webp" alt="Cardiovascular Medicine" class="img-fluid">
-                <div class="visual-overlay">
-                  <i class="bi bi-heart-pulse"></i>
+                <h4 class="fw-bold text-primary mb-2"><?php echo htmlspecialchars($v['vaccine_name']); ?></h4>
+                <p class="text-secondary small mb-3"><?php echo htmlspecialchars($v['description']); ?></p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                  <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 small">
+                    <i class="bi bi-check-circle me-1"></i> Available
+                  </span>
+                  <a href="dashboard/login.php" class="small text-primary fw-semibold text-decoration-none">Book Slot &rarr;</a>
                 </div>
               </div>
             </div>
-          </div><!-- End Specialty Card -->
-
-          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="200">
-            <div class="specialty-card">
-              <div class="specialty-content">
-                <div class="specialty-meta">
-                  <span class="specialty-label">Expert Care</span>
+          <?php
+            }
+          } else {
+          ?>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+              <div class="department-highlight h-100 p-4 rounded shadow-sm bg-white border">
+                <div class="highlight-icon mb-3 text-primary" style="font-size: 36px;">
+                  <i class="bi bi-shield-plus"></i>
                 </div>
-                <h3>Neurological Sciences</h3>
-                <p>Cutting-edge neuroimaging and neurosurgical expertise for complex brain and spinal cord conditions
-                  with innovative treatment approaches.</p>
-                <div class="specialty-features">
-                  <span><i class="bi bi-check-circle-fill"></i>Advanced Brain Imaging</span>
-                  <span><i class="bi bi-check-circle-fill"></i>Robotic Surgery</span>
-                </div>
-                <a href="department-details.html" class="specialty-link">
-                  Explore Neurology <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-              <div class="specialty-visual">
-                <img src="assets/img/health/neurology-4.webp" alt="Neurological Sciences" class="img-fluid">
-                <div class="visual-overlay">
-                  <i class="bi bi-cpu"></i>
+                <h4 class="fw-bold text-primary mb-2">BCG Vaccine</h4>
+                <p class="text-secondary small mb-3">Administered at birth to provide vital, lifelong protection against severe childhood tuberculosis.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                  <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 small">
+                    <i class="bi bi-check-circle me-1"></i> Available
+                  </span>
+                  <a href="dashboard/login.php" class="small text-primary fw-semibold text-decoration-none">Book Slot &rarr;</a>
                 </div>
               </div>
             </div>
-          </div><!-- End Specialty Card -->
 
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="department-highlight">
-              <div class="highlight-icon">
-                <i class="bi bi-shield-plus"></i>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+              <div class="department-highlight h-100 p-4 rounded shadow-sm bg-white border">
+                <div class="highlight-icon mb-3 text-primary" style="font-size: 36px;">
+                  <i class="bi bi-shield-plus"></i>
+                </div>
+                <h4 class="fw-bold text-primary mb-2">Hepatitis B</h4>
+                <p class="text-secondary small mb-3">Crucial birth dose and infant booster sequence guarding against chronic liver inflammation and infections.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                  <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 small">
+                    <i class="bi bi-check-circle me-1"></i> Available
+                  </span>
+                  <a href="dashboard/login.php" class="small text-primary fw-semibold text-decoration-none">Book Slot &rarr;</a>
+                </div>
               </div>
-              <h4>Orthopedic Surgery</h4>
-              <p>Comprehensive musculoskeletal care utilizing advanced arthroscopic techniques and joint replacement
-                procedures.</p>
-              <ul class="highlight-list">
-                <li>Sports Medicine</li>
-                <li>Joint Replacement</li>
-                <li>Spine Surgery</li>
-              </ul>
-              <a href="department-details.html" class="highlight-cta">Learn More</a>
             </div>
-          </div><!-- End Department Highlight -->
 
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="department-highlight">
-              <div class="highlight-icon">
-                <i class="bi bi-people"></i>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+              <div class="department-highlight h-100 p-4 rounded shadow-sm bg-white border">
+                <div class="highlight-icon mb-3 text-primary" style="font-size: 36px;">
+                  <i class="bi bi-shield-plus"></i>
+                </div>
+                <h4 class="fw-bold text-primary mb-2">OPV &amp; IPV (Polio)</h4>
+                <p class="text-secondary small mb-3">Oral and injectable polio vaccines ensuring complete immunity and prevention of poliomyelitis.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                  <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 small">
+                    <i class="bi bi-check-circle me-1"></i> Available
+                  </span>
+                  <a href="dashboard/login.php" class="small text-primary fw-semibold text-decoration-none">Book Slot &rarr;</a>
+                </div>
               </div>
-              <h4>Pediatric Care</h4>
-              <p>Child-centered healthcare services from newborn to adolescence with family-focused treatment
-                approaches.</p>
-              <ul class="highlight-list">
-                <li>Neonatal Intensive Care</li>
-                <li>Developmental Pediatrics</li>
-                <li>Pediatric Surgery</li>
-              </ul>
-              <a href="department-details.html" class="highlight-cta">Learn More</a>
             </div>
-          </div><!-- End Department Highlight -->
 
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-            <div class="department-highlight">
-              <div class="highlight-icon">
-                <i class="bi bi-activity"></i>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+              <div class="department-highlight h-100 p-4 rounded shadow-sm bg-white border">
+                <div class="highlight-icon mb-3 text-primary" style="font-size: 36px;">
+                  <i class="bi bi-shield-plus"></i>
+                </div>
+                <h4 class="fw-bold text-primary mb-2">Pentavalent</h4>
+                <p class="text-secondary small mb-3">Combined five-in-one vaccine protecting against Diphtheria, Pertussis, Tetanus, Hepatitis B, and Hib.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                  <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 small">
+                    <i class="bi bi-check-circle me-1"></i> Available
+                  </span>
+                  <a href="dashboard/login.php" class="small text-primary fw-semibold text-decoration-none">Book Slot &rarr;</a>
+                </div>
               </div>
-              <h4>Cancer Treatment</h4>
-              <p>Multidisciplinary oncology program offering personalized cancer care with latest therapeutic
-                innovations.</p>
-              <ul class="highlight-list">
-                <li>Precision Medicine</li>
-                <li>Immunotherapy</li>
-                <li>Radiation Oncology</li>
-              </ul>
-              <a href="department-details.html" class="highlight-cta">Learn More</a>
             </div>
-          </div><!-- End Department Highlight -->
 
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+              <div class="department-highlight h-100 p-4 rounded shadow-sm bg-white border">
+                <div class="highlight-icon mb-3 text-primary" style="font-size: 36px;">
+                  <i class="bi bi-shield-plus"></i>
+                </div>
+                <h4 class="fw-bold text-primary mb-2">PCV (Pneumococcal)</h4>
+                <p class="text-secondary small mb-3">Protects infants against severe pneumococcal disease, pneumonia, and related bacterial infections.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                  <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 small">
+                    <i class="bi bi-check-circle me-1"></i> Available
+                  </span>
+                  <a href="dashboard/login.php" class="small text-primary fw-semibold text-decoration-none">Book Slot &rarr;</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+              <div class="department-highlight h-100 p-4 rounded shadow-sm bg-white border">
+                <div class="highlight-icon mb-3 text-primary" style="font-size: 36px;">
+                  <i class="bi bi-shield-plus"></i>
+                </div>
+                <h4 class="fw-bold text-primary mb-2">Measles &amp; MMR</h4>
+                <p class="text-secondary small mb-3">Administered at 9 and 15 months to build long-term immunity against measles, mumps, and rubella.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                  <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 small">
+                    <i class="bi bi-check-circle me-1"></i> Available
+                  </span>
+                  <a href="dashboard/login.php" class="small text-primary fw-semibold text-decoration-none">Book Slot &rarr;</a>
+                </div>
+              </div>
+            </div>
+          <?php
+          }
+          ?>
         </div>
 
-        <div class="emergency-banner" data-aos="fade-up" data-aos-delay="400">
+        <div class="emergency-banner mt-5" data-aos="fade-up" data-aos-delay="400">
           <div class="row align-items-center">
             <div class="col-lg-8">
               <div class="emergency-content">
-                <h3>Emergency Services Available 24/7</h3>
-                <p>Our emergency department is equipped with state-of-the-art technology and staffed by board-certified
-                  emergency physicians ready to provide immediate care.</p>
+                <h3>Pediatric Vaccination Helpline</h3>
+                <p>Have questions about vaccination schedules, delayed doses, or hospital bookings? Our support team and participating hospitals are here to help.</p>
               </div>
             </div>
             <div class="col-lg-4 text-lg-end">
-              <a href="tel:+15551234567" class="emergency-btn">
+              <a href="tel:+923002160865" class="emergency-btn">
                 <i class="bi bi-telephone-fill"></i>
-                Call Emergency: 0300 2160865
+                Helpline: 0300 2160865
               </a>
             </div>
           </div>
@@ -343,8 +357,8 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Featured Services</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <h2>Comprehensive Vaccination Services</h2>
+        <p>Reliable healthcare and automated immunization management for parents and accredited hospitals</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -354,20 +368,19 @@
           <div class="col-lg-8" data-aos="fade-right" data-aos-delay="200">
             <div class="featured-service-main">
               <div class="service-image-wrapper">
-                <img src="assets/img/health/consultation-4.webp" alt="Premier Healthcare Services" class="img-fluid"
+                <img src="assets/img/health/consultation-4.webp" alt="Child Vaccination Services" class="img-fluid"
                   loading="lazy">
                 <div class="service-overlay">
                   <div class="service-badge">
-                    <i class="bi bi-heart-pulse"></i>
-                    <span>Emergency Care</span>
+                    <i class="bi bi-shield-check"></i>
+                    <span>Automated Milestones</span>
                   </div>
                 </div>
               </div>
               <div class="service-details">
-                <h2>Comprehensive Healthcare Excellence</h2>
-                <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ante ipsum primis in faucibus
-                  orci luctus et ultrices posuere cubilia curae donec velit neque.</p>
-                <a href="#!" class="main-cta">Explore Our Services</a>
+                <h2>Precision Child Immunization Scheduling</h2>
+                <p>Our intelligent system automatically calculates immunization schedules from birth for essential vaccines like BCG, Polio, Pentavalent, PCV, and MMR, preventing missed doses and ensuring complete pediatric protection.</p>
+                <a href="dashboard/register.php" class="main-cta"><i class="bi bi-person-plus me-1"></i> Register Your Child</a>
               </div>
             </div>
           </div>
@@ -377,36 +390,34 @@
 
               <div class="service-item" data-aos="fade-up" data-aos-delay="400">
                 <div class="service-icon-wrapper">
-                  <i class="bi bi-capsule"></i>
+                  <i class="bi bi-hospital"></i>
                 </div>
                 <div class="service-info">
-                  <h4>Dermatology Clinic</h4>
-                  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-                  <a href="#!" class="service-link">Learn More</a>
+                  <h4>Hospital Booking</h4>
+                  <p>Book convenient vaccination slots at accredited hospitals and certified pediatric medical centers.</p>
+                  <a href="dashboard/login.php" class="service-link">Book Now <i class="bi bi-arrow-right"></i></a>
                 </div>
               </div>
 
               <div class="service-item" data-aos="fade-up" data-aos-delay="500">
                 <div class="service-icon-wrapper">
-                  <i class="bi bi-bandaid"></i>
+                  <i class="bi bi-file-earmark-medical"></i>
                 </div>
                 <div class="service-info">
-                  <h4>Surgery Center</h4>
-                  <p>Donec rutrum congue leo eget malesuada curabitur arcu erat accumsan id imperdiet et porttitor at
-                    sem.</p>
-                  <a href="#!" class="service-link">Learn More</a>
+                  <h4>Digital Vaccination Records</h4>
+                  <p>Certified digital history and status reports for every administered vaccine, accessible anytime.</p>
+                  <a href="dashboard/login.php" class="service-link">Access Records <i class="bi bi-arrow-right"></i></a>
                 </div>
               </div>
 
               <div class="service-item" data-aos="fade-up" data-aos-delay="600">
                 <div class="service-icon-wrapper">
-                  <i class="bi bi-activity"></i>
+                  <i class="bi bi-bell"></i>
                 </div>
                 <div class="service-info">
-                  <h4>Diagnostics Lab</h4>
-                  <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui cras ultricies ligula sed
-                    magna.</p>
-                  <a href="#!" class="service-link">Learn More</a>
+                  <h4>Milestone Reminders</h4>
+                  <p>Proactive alerts and dashboard notices to guarantee your infant never misses a scheduled dose.</p>
+                  <a href="dashboard/login.php" class="service-link">View Dates <i class="bi bi-arrow-right"></i></a>
                 </div>
               </div>
 
@@ -478,234 +489,133 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Find A Doctor</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <h2>Partner Hospitals &amp; Vaccination Centers</h2>
+        <p>Certified medical centers and pediatric clinics committed to safe, timely child immunization</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="row justify-content-center mb-5" data-aos="fade-up" data-aos-delay="200">
+        <div class="row justify-content-center mb-4" data-aos="fade-up" data-aos-delay="200">
           <div class="col-lg-8 text-center">
-            <div class="search-section">
-              <h3 class="search-title">Find Your Perfect Healthcare Provider</h3>
-              <p class="search-subtitle">Search through our comprehensive directory of experienced medical professionals
-              </p>
-              <form class="search-form" action="#!" method="#">
-                <div class="search-input-group">
-                  <div class="input-wrapper">
-                    <i class="bi bi-person"></i>
-                    <input type="text" class="form-control" name="doctor_name" placeholder="Enter doctor name">
-                  </div>
-                  <div class="select-wrapper">
-                    <i class="bi bi-heart-pulse"></i>
-                    <select class="form-select" name="specialty">
-                      <option value="">All Specialties</option>
-                      <option value="cardiology">Cardiology</option>
-                      <option value="neurology">Neurology</option>
-                      <option value="orthopedics">Orthopedics</option>
-                      <option value="pediatrics">Pediatrics</option>
-                      <option value="dermatology">Dermatology</option>
-                      <option value="oncology">Oncology</option>
-                    </select>
-                  </div>
-                  <button type="submit" class="search-btn">
-                    <i class="bi bi-search"></i>
-                    Find Doctors
-                  </button>
-                </div>
-              </form>
+            <div class="search-section py-3">
+              <h3 class="search-title">Accredited Medical Centers</h3>
+              <p class="search-subtitle">Connect with verified hospitals and pediatric clinics equipped for routine and booster child immunizations</p>
             </div>
           </div>
         </div>
 
         <div class="doctors-grid" data-aos="fade-up" data-aos-delay="300">
-          <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="100">
-            <div class="profile-header">
-              <div class="doctor-avatar">
-                <img src="assets/img/health/staff-2.webp" alt="Dr. Amanda Foster" class="img-fluid">
-                <div class="status-indicator available"></div>
-              </div>
-              <div class="doctor-details">
-                <h4>Dr. Amanda Foster</h4>
-                <span class="specialty-tag">Cardiology Specialist</span>
-                <div class="experience-info">
-                  <i class="bi bi-award"></i>
-                  <span>14 years experience</span>
+          <?php
+          $hosp_q = mysqli_query($conn, "SELECT * FROM hospitals ORDER BY id DESC LIMIT 6");
+          if (mysqli_num_rows($hosp_q) > 0) {
+            while ($h = mysqli_fetch_array($hosp_q)) {
+          ?>
+            <div class="doctor-profile" data-aos="zoom-in">
+              <div class="profile-header">
+                <div class="doctor-avatar bg-primary-subtle text-primary d-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 70px; height: 70px; font-size: 32px;">
+                  <i class="bi bi-hospital"></i>
+                </div>
+                <div class="doctor-details">
+                  <h4><?php echo htmlspecialchars($h['hospital_name']); ?></h4>
+                  <span class="specialty-tag"><i class="bi bi-geo-alt me-1"></i><?php echo htmlspecialchars($h['location']); ?></span>
+                  <div class="experience-info">
+                    <i class="bi bi-telephone"></i>
+                    <span><?php echo htmlspecialchars($h['phone']); ?></span>
+                  </div>
                 </div>
               </div>
-            </div>
-            
-            <div class="action-buttons">
-              <a href="#!" class="btn-secondary">View Details</a>
-              <a href="#!" class="btn-primary">Book Now</a>
-            </div>
-          </div><!-- End Doctor Profile -->
-
-          <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="200">
-            <div class="profile-header">
-              <div class="doctor-avatar">
-                <img src="assets/img/health/staff-6.webp" alt="Dr. Marcus Johnson" class="img-fluid">
-                <div class="status-indicator busy"></div>
+              <div class="p-2 bg-light rounded mt-3 mb-2 small text-secondary">
+                <i class="bi bi-pin-map me-1 text-primary"></i><?php echo htmlspecialchars($h['address']); ?>
               </div>
-              <div class="doctor-details">
-                <h4>Dr. Marcus Johnson</h4>
-                <span class="specialty-tag">Neurology Expert</span>
-                <div class="experience-info">
-                  <i class="bi bi-award"></i>
-                  <span>16 years experience</span>
+              <div class="action-buttons">
+                <a href="dashboard/login.php" class="btn-primary w-100 text-center">
+                  <i class="bi bi-calendar-check me-1"></i> Book Vaccination
+                </a>
+              </div>
+            </div>
+          <?php
+            }
+          } else {
+          ?>
+            <div class="doctor-profile" data-aos="zoom-in">
+              <div class="profile-header">
+                <div class="doctor-avatar bg-primary-subtle text-primary d-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 70px; height: 70px; font-size: 32px;">
+                  <i class="bi bi-hospital"></i>
+                </div>
+                <div class="doctor-details">
+                  <h4>City Children Hospital</h4>
+                  <span class="specialty-tag"><i class="bi bi-geo-alt me-1"></i>Central District</span>
+                  <div class="experience-info">
+                    <i class="bi bi-telephone"></i>
+                    <span>+92 300 2160865</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="rating-section">
-              <div class="stars">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-half"></i>
+              <div class="p-2 bg-light rounded mt-3 mb-2 small text-secondary">
+                <i class="bi bi-pin-map me-1 text-primary"></i>Main Healthcare Boulevard, Block 4
               </div>
-              <span class="rating-score">4.8</span>
-              <span class="review-count">(89 reviews)</span>
+              <div class="action-buttons">
+                <a href="dashboard/login.php" class="btn-primary w-100 text-center">
+                  <i class="bi bi-calendar-check me-1"></i> Book Vaccination
+                </a>
+              </div>
             </div>
-            <div class="action-buttons">
-              <a href="#!" class="btn-secondary">View Details</a>
-              <a href="#!" class="btn-primary">Schedule</a>
-            </div>
-          </div><!-- End Doctor Profile -->
 
-          <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="300">
-            <div class="profile-header">
-              <div class="doctor-avatar">
-                <img src="assets/img/health/staff-4.webp" alt="Dr. Rachel Williams" class="img-fluid">
-                <div class="status-indicator available"></div>
-              </div>
-              <div class="doctor-details">
-                <h4>Dr. Rachel Williams</h4>
-                <span class="specialty-tag">Pediatrics Care</span>
-                <div class="experience-info">
-                  <i class="bi bi-award"></i>
-                  <span>11 years experience</span>
+            <div class="doctor-profile" data-aos="zoom-in">
+              <div class="profile-header">
+                <div class="doctor-avatar bg-primary-subtle text-primary d-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 70px; height: 70px; font-size: 32px;">
+                  <i class="bi bi-hospital"></i>
+                </div>
+                <div class="doctor-details">
+                  <h4>National Pediatric Medical Center</h4>
+                  <span class="specialty-tag"><i class="bi bi-geo-alt me-1"></i>North Zone</span>
+                  <div class="experience-info">
+                    <i class="bi bi-telephone"></i>
+                    <span>+92 321 8899221</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="rating-section">
-              <div class="stars">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
+              <div class="p-2 bg-light rounded mt-3 mb-2 small text-secondary">
+                <i class="bi bi-pin-map me-1 text-primary"></i>Sector 8, Medical Enclave
               </div>
-              <span class="rating-score">5.0</span>
-              <span class="review-count">(203 reviews)</span>
+              <div class="action-buttons">
+                <a href="dashboard/login.php" class="btn-primary w-100 text-center">
+                  <i class="bi bi-calendar-check me-1"></i> Book Vaccination
+                </a>
+              </div>
             </div>
-            <div class="action-buttons">
-              <a href="#!" class="btn-secondary">View Details</a>
-              <a href="#!" class="btn-primary">Book Now</a>
-            </div>
-          </div><!-- End Doctor Profile -->
 
-          <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="400">
-            <div class="profile-header">
-              <div class="doctor-avatar">
-                <img src="assets/img/health/staff-8.webp" alt="Dr. David Chen" class="img-fluid">
-                <div class="status-indicator offline"></div>
-              </div>
-              <div class="doctor-details">
-                <h4>Dr. David Chen</h4>
-                <span class="specialty-tag">Orthopedic Surgery</span>
-                <div class="experience-info">
-                  <i class="bi bi-award"></i>
-                  <span>22 years experience</span>
+            <div class="doctor-profile" data-aos="zoom-in">
+              <div class="profile-header">
+                <div class="doctor-avatar bg-primary-subtle text-primary d-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 70px; height: 70px; font-size: 32px;">
+                  <i class="bi bi-hospital"></i>
+                </div>
+                <div class="doctor-details">
+                  <h4>St. Jude Infant Care Clinic</h4>
+                  <span class="specialty-tag"><i class="bi bi-geo-alt me-1"></i>East Medical City</span>
+                  <div class="experience-info">
+                    <i class="bi bi-telephone"></i>
+                    <span>+92 333 4455667</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="rating-section">
-              <div class="stars">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-half"></i>
+              <div class="p-2 bg-light rounded mt-3 mb-2 small text-secondary">
+                <i class="bi bi-pin-map me-1 text-primary"></i>Avenue 12, Pediatric Health Park
               </div>
-              <span class="rating-score">4.7</span>
-              <span class="review-count">(156 reviews)</span>
-            </div>
-            <div class="action-buttons">
-              <a href="#!" class="btn-secondary">View Details</a>
-              <a href="#!" class="btn-primary">Schedule</a>
-            </div>
-          </div><!-- End Doctor Profile -->
-
-          <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="500">
-            <div class="profile-header">
-              <div class="doctor-avatar">
-                <img src="assets/img/health/staff-11.webp" alt="Dr. Victoria Torres" class="img-fluid">
-                <div class="status-indicator available"></div>
-              </div>
-              <div class="doctor-details">
-                <h4>Dr. Victoria Torres</h4>
-                <span class="specialty-tag">Dermatology Care</span>
-                <div class="experience-info">
-                  <i class="bi bi-award"></i>
-                  <span>9 years experience</span>
-                </div>
+              <div class="action-buttons">
+                <a href="dashboard/login.php" class="btn-primary w-100 text-center">
+                  <i class="bi bi-calendar-check me-1"></i> Book Vaccination
+                </a>
               </div>
             </div>
-            <div class="rating-section">
-              <div class="stars">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star"></i>
-              </div>
-              <span class="rating-score">4.5</span>
-              <span class="review-count">(74 reviews)</span>
-            </div>
-            <div class="action-buttons">
-              <a href="#!" class="btn-secondary">View Details</a>
-              <a href="#!" class="btn-primary">Book Now</a>
-            </div>
-          </div><!-- End Doctor Profile -->
-
-          <div class="doctor-profile" data-aos="zoom-in" data-aos-delay="600">
-            <div class="profile-header">
-              <div class="doctor-avatar">
-                <img src="assets/img/health/staff-14.webp" alt="Dr. Benjamin Lee" class="img-fluid">
-                <div class="status-indicator available"></div>
-              </div>
-              <div class="doctor-details">
-                <h4>Dr. Benjamin Lee</h4>
-                <span class="specialty-tag">Oncology Treatment</span>
-                <div class="experience-info">
-                  <i class="bi bi-award"></i>
-                  <span>19 years experience</span>
-                </div>
-              </div>
-            </div>
-            <div class="rating-section">
-              <div class="stars">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </div>
-              <span class="rating-score">4.9</span>
-              <span class="review-count">(194 reviews)</span>
-            </div>
-            <div class="action-buttons">
-              <a href="#!" class="btn-secondary">View Details</a>
-              <a href="#!" class="btn-primary">Schedule</a>
-            </div>
-          </div><!-- End Doctor Profile -->
-
+          <?php
+          }
+          ?>
         </div>
 
         <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="700">
-          <a href="doctors.html" class="btn-view-all">
-            View All Doctors
+          <a href="dashboard/login.php" class="btn-view-all">
+            View All Partner Centers
             <i class="bi bi-arrow-right"></i>
           </a>
         </div>
@@ -724,16 +634,15 @@
 
             <div class="col-lg-6">
               <div class="content-wrapper" data-aos="fade-up" data-aos-delay="200">
-                <h1>Excellence in Medical Care, Every Day</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-                  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                <h1>Keep Your Child's Immunization On Track</h1>
+                <p>Register today to generate your infant's personalized vaccination roadmap, connect with certified hospitals, and track immunization progress in one secure portal.</p>
 
                 <div class="cta-wrapper">
-                  <a href="appointment.html" class="primary-cta">
-                    <span>Schedule Consultation</span>
+                  <a href="dashboard/register.php" class="primary-cta">
+                    <span>Register Your Child</span>
                     <i class="bi bi-arrow-right"></i>
                   </a>
-                  <a href="services.html" class="secondary-cta">
+                  <a href="#featured-services" class="secondary-cta">
                     <span>Explore Services</span>
                     <i class="bi bi-arrow-right"></i>
                   </a>
@@ -759,9 +668,8 @@
                 <div class="feature-icon">
                   <i class="bi bi-shield-check"></i>
                 </div>
-                <h3>Advanced Technology</h3>
-                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                  laborum.</p>
+                <h3>Certified Vaccines</h3>
+                <p>Every vaccine in our database follows international pediatric health protocols and safety standards.</p>
               </div>
             </div>
 
@@ -770,20 +678,18 @@
                 <div class="feature-icon">
                   <i class="bi bi-clock"></i>
                 </div>
-                <h3>24/7 Availability</h3>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
-                  excepteur.</p>
+                <h3>Automated Milestones</h3>
+                <p>Timely notifications and automatic date generation ensure your child receives every dose on schedule.</p>
               </div>
             </div>
 
             <div class="col-lg-4">
               <div class="feature-block" data-aos="fade-up" data-aos-delay="400">
                 <div class="feature-icon">
-                  <i class="bi bi-people"></i>
+                  <i class="bi bi-hospital"></i>
                 </div>
-                <h3>Expert Team</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium
-                  totam rem.</p>
+                <h3>Verified Hospitals</h3>
+                <p>Partnering with registered pediatric clinics and general hospitals across multiple cities.</p>
               </div>
             </div>
 
@@ -804,11 +710,11 @@
 
             <div class="col-lg-4">
               <div class="contact-actions" data-aos="fade-up" data-aos-delay="300">
-                <a href="tel:5551234567" class="emergency-call">
+                <a href="tel:+923002160865" class="emergency-call">
                   <i class="bi bi-telephone"></i>
-                  <span>(555) 123-4567</span>
+                  <span>+92 300 2160865</span>
                 </a>
-                <a href="contact.html" class="contact-link">Find Location</a>
+                <a href="#footer" class="contact-link">Find Location</a>
               </div>
             </div>
 

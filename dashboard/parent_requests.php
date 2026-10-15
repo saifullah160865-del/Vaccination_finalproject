@@ -19,7 +19,7 @@ if (isset($_GET['action']) && isset($_GET['booking_id'])) {
   </div>
 
   <div class="card-body">
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped datatable">
       <thead>
         <tr>
           <th style="width: 10px">#</th>
@@ -29,7 +29,7 @@ if (isset($_GET['action']) && isset($_GET['booking_id'])) {
           <th>Vaccine</th>
           <th>Booking Date</th>
           <th>Current Status</th>
-          <th style="width: 200px">Action</th>
+          <th style="width: 180px">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -45,6 +45,15 @@ if (isset($_GET['action']) && isset($_GET['booking_id'])) {
         $execute = mysqli_query($conn, $query);
         $count = 1;
         while ($display = mysqli_fetch_array($execute)) {
+          if ($display['status'] == 'Approved') {
+            $badge_class = 'bg-primary';
+          } else if ($display['status'] == 'Rejected') {
+            $badge_class = 'bg-danger';
+          } else if ($display['status'] == 'Completed') {
+            $badge_class = 'bg-success';
+          } else {
+            $badge_class = 'bg-warning text-dark';
+          }
         ?>
           <tr class="align-middle">
             <td><?php echo $count++; ?></td>
@@ -53,13 +62,17 @@ if (isset($_GET['action']) && isset($_GET['booking_id'])) {
             <td><?php echo $display['hospital_name']; ?></td>
             <td><span class="highlight"><?php echo $display['vaccine_name']; ?></span></td>
             <td><?php echo $display['booking_date']; ?></td>
-            <td><span class="badge badge-soft-blue"><?php echo $display['status']; ?></span></td>
+            <td><span class="badge <?php echo $badge_class; ?>"><?php echo $display['status']; ?></span></td>
             <td class="text-nowrap">
               <?php if ($display['status'] == 'Pending') { ?>
-                <a href="parent_requests.php?action=approve&booking_id=<?php echo $display['id']; ?>" class="btn btn-primary btn-sm">Approve</a>
-                <a href="parent_requests.php?action=reject&booking_id=<?php echo $display['id']; ?>" class="btn btn-outline-secondary btn-sm" onclick="return confirm('Are you sure you want to reject this request?')">Reject</a>
+                <a href="parent_requests.php?action=approve&booking_id=<?php echo $display['id']; ?>" class="btn btn-success btn-sm me-1" title="Approve Request">
+                  <i class="bi bi-check-lg me-1"></i>Approve
+                </a>
+                <a href="javascript:void(0)" onclick="confirmDelete('parent_requests.php?action=reject&booking_id=<?php echo $display['id']; ?>', 'Are you sure you want to reject this request?');" class="btn btn-outline-danger btn-sm" title="Reject Request">
+                  <i class="bi bi-x-lg me-1"></i>Reject
+                </a>
               <?php } else { ?>
-                <span class="text-secondary"><?php echo $display['status']; ?></span>
+                <span class="text-muted small">Processed</span>
               <?php } ?>
             </td>
           </tr>

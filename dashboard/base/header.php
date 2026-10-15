@@ -77,12 +77,8 @@ include("protectedRoute.php");
   <link rel="stylesheet" href="./css/medical-theme.css" />
   <!--end::Medical Theme-->
 
-  <!-- jsvectormap -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css"
-    integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4="
-    crossorigin="anonymous" />
+  <!-- DataTables Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -113,37 +109,37 @@ include("protectedRoute.php");
         <ul class="navbar-nav ms-auto">
           <!--begin::Search (small screens: the field above is hidden, so link to the search page)-->
           <li class="nav-item d-md-none">
-            <a class="nav-link" href="./pages/search-results.html" aria-label="Search">
+            <a class="nav-link" href="#" aria-label="Search">
               <i class="bi bi-search" aria-hidden="true"></i>
             </a>
           </li>
 
           <!--begin::User Menu Dropdown-->
           <li class="nav-item dropdown user-menu">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-              <img
-                src="./assets/img/user2-160x160.jpg"
-                class="user-image rounded-circle shadow"
-                alt="User Image" />
-              <span class="d-none d-md-inline"><?php echo isset($_SESSION['name']) ? $_SESSION['name'] : 'User'; ?></span>
+            <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
+              <span class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center me-2 shadow-sm fw-bold" style="width: 32px; height: 32px; font-size: 14px;">
+                <?php echo strtoupper(substr(isset($_SESSION['name']) ? $_SESSION['name'] : 'U', 0, 1)); ?>
+              </span>
+              <span class="d-none d-md-inline fw-semibold"><?php echo isset($_SESSION['name']) ? $_SESSION['name'] : 'User'; ?></span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-              <!--begin::User Image-->
-              <li class="user-header text-bg-primary">
-                <img
-                  src="./assets/img/user2-160x160.jpg"
-                  class="rounded-circle shadow"
-                  alt="User Image" />
-                <p>
-                  <?php echo isset($_SESSION['name']) ? $_SESSION['name'] : 'User'; ?> - <?php echo isset($_SESSION['role']) ? ucfirst($_SESSION['role']) : ''; ?>
-                  <small>Infant Vaccination Management System</small>
+            <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end shadow border-0">
+              <!--begin::User Header-->
+              <li class="user-header text-bg-primary d-flex flex-column align-items-center justify-content-center p-3">
+                <span class="rounded-circle bg-white text-primary d-inline-flex align-items-center justify-content-center shadow mb-2 fw-bold" style="width: 60px; height: 60px; font-size: 24px;">
+                  <?php echo strtoupper(substr(isset($_SESSION['name']) ? $_SESSION['name'] : 'U', 0, 1)); ?>
+                </span>
+                <p class="mb-1 fw-bold fs-6">
+                  <?php echo isset($_SESSION['name']) ? $_SESSION['name'] : 'User'; ?>
                 </p>
+                <span class="badge bg-light text-primary text-uppercase px-2 py-1">
+                  <?php echo isset($_SESSION['role']) ? $_SESSION['role'] : ''; ?>
+                </span>
               </li>
-              <!--end::User Image-->
+              <!--end::User Header-->
               <!--begin::Menu Footer-->
-              <li class="user-footer">
-                <a href="profile.php" class="btn btn-outline-secondary">Profile</a>
-                <a href="logout.php" class="btn btn-outline-danger float-end">Sign out</a>
+              <li class="user-footer p-2 bg-light d-flex justify-content-between align-items-center">
+                <a href="profile.php" class="btn btn-sm btn-outline-secondary"><i class="bi bi-person me-1"></i>Profile</a>
+                <a href="logout.php" class="btn btn-sm btn-outline-danger"><i class="bi bi-box-arrow-right me-1"></i>Sign out</a>
               </li>
               <!--end::Menu Footer-->
             </ul>
@@ -204,109 +200,28 @@ include("protectedRoute.php");
             if ($_SESSION['role'] == "admin") {
             ?>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="childrens.php" class="nav-link">
                   <i class="nav-icon bi bi-people"></i>
-                  <p>
-                    Children
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
+                  <p>All Child Details</p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="childrens.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>All Child Details</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="vaccination_dates.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Vaccination Dates</p>
-                    </a>
-                  </li>
-                </ul>
               </li>
 
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-capsule"></i>
-                  <p>
-                    Vaccination
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
+                <a href="vaccination_dates.php" class="nav-link">
+                  <i class="nav-icon bi bi-calendar2-week"></i>
+                  <p>Vaccination Schedule</p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="vaccination_dates.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Date & Time</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="vaccination_reports.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Vaccination Reports</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="vaccination_reports.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Date Wise Report</p>
-                    </a>
-                  </li>
-                </ul>
               </li>
 
               <li class="nav-item">
                 <a href="vaccines_list.php" class="nav-link">
                   <i class="nav-icon bi bi-prescription2"></i>
-                  <p>
-                    Vaccines
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
+                  <p>Vaccines List</p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Vaccine List</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Available / Unavailable</p>
-                    </a>
-                  </li>
-                </ul>
               </li>
 
               <li class="nav-item">
-                <a href="parent_requests.php" class="nav-link">
-                  <i class="nav-icon bi bi-person-check"></i>
-                  <p>
-                    Parent Requests
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="parent_requests.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Requests</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="parent_requests.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Approve / Reject</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-
-              <li class="nav-item">
-                <a href="add_hospital.php" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-hospital"></i>
                   <p>
                     Hospitals
@@ -315,30 +230,38 @@ include("protectedRoute.php");
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="add_hospital.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Add Hospital</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
                     <a href="hospitals_list.php" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>List of Hospitals</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="manage_hospitals.php" class="nav-link">
+                    <a href="add_hospital.php" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
-                      <p>Update / Delete Hospital</p>
+                      <p>Add Hospital</p>
                     </a>
                   </li>
                 </ul>
               </li>
 
               <li class="nav-item">
+                <a href="parent_requests.php" class="nav-link">
+                  <i class="nav-icon bi bi-person-check"></i>
+                  <p>Parent Requests</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
                 <a href="bookings.php" class="nav-link">
                   <i class="nav-icon bi bi-calendar-check"></i>
                   <p>Booking Details</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="vaccination_reports.php" class="nav-link">
+                  <i class="nav-icon bi bi-file-earmark-medical"></i>
+                  <p>Vaccination Reports</p>
                 </a>
               </li>
 
@@ -353,7 +276,7 @@ include("protectedRoute.php");
               </li>
 
               <li class="nav-item">
-                <a href="vaccines_list.php" class="nav-link">
+                <a href="my_vaccination_dates.php" class="nav-link">
                   <i class="nav-icon bi bi-calendar-date"></i>
                   <p>Vaccination Dates</p>
                 </a>
