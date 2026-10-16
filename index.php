@@ -1,9 +1,9 @@
   <?php
     include("base/header.php");
-  ?>
+  ?> 
 
   <main class="main">
-  
+
     <!-- Hero Section -->
     <section id="hero" class="hero section">
 
@@ -272,8 +272,7 @@
                 <p class="text-secondary small mb-3">Oral and injectable polio vaccines ensuring complete immunity and prevention of poliomyelitis.</p>
                 <div class="d-flex justify-content-between align-items-center pt-2 border-top">
                   <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 small">
-                    <i class="bi bi-check-circle me-1"></i> Available
-                  </span>
+                    <i class="bi bi-check-circle me-1"></i> Available</span>
                   <a href="dashboard/login.php" class="small text-primary fw-semibold text-decoration-none">Book Slot &rarr;</a>
                 </div>
               </div>
